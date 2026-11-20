@@ -87,8 +87,11 @@ td:first-child{color:var(--grey);font-size:14px;white-space:nowrap;width:70px}
 .empty{border:1px dashed #44444a;border-radius:10px;padding:28px;text-align:center;color:var(--grey);margin-bottom:12px}
 .addex{width:100%;min-height:52px;border:1px solid var(--line);background:var(--panel2);border-radius:10px;font-weight:600}
 .addex:hover{border-color:var(--red)}
-.foot{position:fixed;left:0;right:0;bottom:0;background:rgba(0,0,0,.92);border-top:1px solid var(--line);padding:12px max(3vw,16px) calc(12px + env(safe-area-inset-bottom));display:flex;gap:14px;align-items:center;flex-wrap:wrap;z-index:6}
+.foot{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid var(--line);padding:12px max(3vw,16px) calc(12px + env(safe-area-inset-bottom));display:flex;gap:14px;align-items:center;flex-wrap:wrap;z-index:6}
 .foot p{margin:0;flex:1 1 260px;font-size:14px;color:var(--grey)}
+.fbtn{display:flex;gap:10px;flex:1 1 360px;justify-content:flex-end}.fbtn button{min-height:52px}.fbtn .go{flex:1 1 auto;max-width:280px;justify-content:center;font-size:20px}.fbtn .ghost{flex:0 1 auto;font-weight:600;background:transparent;border:2px solid var(--red);color:#fff;white-space:nowrap}.fbtn .ghost:hover{background:rgba(227,13,15,.15)}
+.ghost.exp{display:inline-flex;gap:8px;align-items:center}.ghost:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:600px){.foot p{display:none}.fbtn{flex:1 1 100%}.fbtn .go{max-width:none;flex:1.4 1 0}.fbtn .ghost{flex:1 1 0;padding:0 8px;font-size:15px}}
 .foot p b{color:var(--ink);font-weight:600}
 .go{background:var(--red);border:0;border-radius:8px;min-height:48px;padding:0 22px;font:700 18px/1 'Saira Condensed',Saira,sans-serif;color:#fff;display:inline-flex;gap:10px;align-items:center}
 .go:hover{background:var(--red2)}
@@ -226,7 +229,7 @@ body.flash::after{content:"";position:fixed;inset:0;border:10px solid var(--red)
 </div>
 <div class="foot">
   <p id="fs"></p>
-  <button class="go" id="ex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Esporta per Garmin</button>
+  <div class="fbtn"><button class="ghost hot" id="lg">Registra a mano</button><button class="go" id="lv"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><span id="lvt0">Allenati ora</span></button></div>
 </div>
 <div class="dlg" id="dlg" role="dialog" aria-modal="true" aria-label="Scegli esercizio">
   <div class="box">
@@ -306,7 +309,8 @@ function renderStats() {
   const w = W(), s = stats(w);
   $("st").innerHTML = `<div><b>${s.n}</b><span>esercizi</span></div><div><b>${s.sets}</b><span>serie totali</span></div><div><b>≈ ${s.min} min</b><span>durata stimata</span></div><div><b>${fmtN(s.vol)} kg</b><span>volume</span></div>`;
   $("fs").innerHTML = w.ex.length ? `<b>${esc(w.name || "Senza nome")}</b> · ${s.n} esercizi, ${s.sets} serie` : "Aggiungi almeno un esercizio per esportare";
-  $("ex").disabled = !w.ex.length;
+  $("lv").disabled = $("lg").disabled = !w.ex.length;
+  $("lvt0").textContent = S.live ? "Riprendi allenamento" : "Allenati ora";
   renderList();
 }
 function setRows(x, i) {
@@ -350,7 +354,7 @@ function renderEditor() {
   const w = W();
   $("ed").innerHTML = (S.live ? `<button class="resume" data-a="livew">Allenamento in corso: <b>${esc(S.live.wName)}</b> · tocca per tornare</button>` : "") + `<input class="title" id="nm" value="${esc(w.name)}" placeholder="Nome scheda" aria-label="Nome scheda">
   <textarea class="desc" id="ds" rows="1" placeholder="Note (facoltative)">${esc(w.desc)}</textarea>
-  <div class="bar"><button class="go" data-a="livew" ${w.ex.length ? "" : "disabled"}>Allenati ora</button><button class="ghost hot" data-a="logw" ${w.ex.length ? "" : "disabled"}>Registra a mano</button><button class="ghost" data-a="dupw">Duplica scheda</button><button class="ghost" data-a="delw">Elimina scheda</button></div>
+  <div class="bar"><button class="ghost exp" data-a="exp" ${w.ex.length ? "" : "disabled"}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Esporta per Garmin</button><button class="ghost" data-a="dupw">Duplica scheda</button><button class="ghost" data-a="delw">Elimina scheda</button></div>
   <div class="stats" id="st"></div>
   ${w.ex.length ? w.ex.map((x, i) => exCard(x, i, w.ex.length)).join("") : `<div class="empty">Nessun esercizio. Aggiungi il primo qui sotto.</div>`}
   <button class="addex" data-a="add">+ Aggiungi esercizio</button>`;
@@ -670,20 +674,20 @@ function renderGuide() {
       <li>Per serie con carichi diversi (piramidale) spunta <b>Serie diverse</b>.</li></ol>
       <p>Si salva tutto da solo: non c'è un tasto Salva.</p>`],
     ["Mettila sul Garmin", `<ol>
-      <li>Dal <b>computer</b>, apri la scheda e premi il pulsante rosso <b>Esporta per Garmin</b>: si scarica un file che finisce in <b>.fit</b>.</li>
+      <li>Dal <b>computer</b>, apri la scheda e premi <b>Esporta per Garmin</b>, sotto il nome della scheda: si scarica un file che finisce in <b>.fit</b>.</li>
       <li>Collega l'orologio al computer con il suo cavo. Se il computer non ha la porta USB-C serve un adattatore da USB-C a USB normale, che supporti i dati.</li>
       <li>Apri l'orologio come una chiavetta e vai nella cartella <b>GARMIN › NewFiles</b>.</li>
       <li>Copia lì dentro il file .fit.</li>
       <li>Scollega l'orologio e aspetta qualche secondo. Troverai la scheda nell'attività <b>Forza</b>, tra gli <b>Allenamenti</b>.</li></ol>
       <p>Su Mac l'orologio non compare nel Finder: installa il programma gratuito <b>OpenMTP</b> e usa quello per copiare il file.</p>`],
     ["Allenati con l'app", `<ol>
-      <li>Apri la scheda e premi <b>Allenati ora</b>. Funziona anche senza orologio: basta il telefono o il computer.</li>
+      <li>Apri la scheda e premi il pulsante rosso <b>Allenati ora</b>, sempre in basso. Funziona anche senza orologio: basta il telefono o il computer.</li>
       <li>Controlla ripetizioni e kg con <b>−</b> e <b>+</b>. Il carico è già suggerito in base all'ultima volta: se avevi completato tutte le ripetizioni, l'app propone di salire.</li>
       <li>Premi <b>Inizia serie</b> e, quando hai finito, <b>Serie fatta</b>. Negli esercizi a tempo parte il conto alla rovescia.</li>
       <li>Parte il <b>recupero</b>. Quando finisce senti un suono, il telefono vibra (se lo supporta) e il bordo dello schermo lampeggia: il timer continua contando la <b>pausa extra</b>, finché non premi Inizia serie.</li>
       <li>Durante il recupero puoi correggere la serie appena fatta. Puoi anche <b>saltare</b> una serie o un esercizio, oppure toccare un esercizio della lista per passare a quello (utile se una macchina è occupata).</li>
       <li>Alla fine, o con <b>Termina</b>, vedi il riepilogo con i muscoli allenati: premi <b>Salva nel diario</b>.</li></ol>
-      <p>Tieni il volume del telefono acceso. Se ti serve silenzio, l'icona dell'altoparlante in alto spegne i suoni. Se hai fatto l'allenamento senza app, usa <b>Registra a mano</b> e inserisci le serie a fine sessione.</p>`],
+      <p>Tieni il volume del telefono acceso. Se ti serve silenzio, l'icona dell'altoparlante in alto spegne i suoni. Se hai fatto l'allenamento senza app, usa <b>Registra a mano</b>, accanto ad Allenati ora, e inserisci le serie a fine sessione.</p>`],
     ["Guarda i progressi", `<ul>
       <li>In alto premi <b>Diario</b>.</li>
       <li><b>Muscoli allenati</b> colora le zone del corpo che hai lavorato: nell'ultimo allenamento, negli ultimi 7 o 30 giorni. Così vedi subito se trascuri qualcosa.</li>
@@ -705,7 +709,7 @@ function renderGuide() {
   $("ed").innerHTML = `<h1 class="h">Come funziona</h1><p class="sub">Sei passi per costruire le tue schede, allenarti con l'app o con l'orologio e seguire i tuoi progressi.</p>
   ${G.map((g, i) => `<section class="gd"><div class="gn">${i + 1}</div><div><h2>${g[0]}</h2>${g[1]}</div></section>`).join("")}
   <div class="card" style="margin-top:8px"><h2>Problemi frequenti</h2>${F.map(f => `<details class="sess"><summary><b style="min-width:0">${f[0]}</b></summary><p class="sub" style="margin:0 0 14px">${f[1]}</p></details>`).join("")}</div>
-  <button class="addex" data-a="goschede">Vai alle schede</button><p class="ver">Versione 1.0.0</p>`;
+  <button class="addex" data-a="goschede">Vai alle schede</button><p class="ver">Versione 1.0.1</p>`;
 }
 
 // ---- diario ----
@@ -718,7 +722,7 @@ function mSessions(L) {
 function renderDiary() {
   const L = sorted();
   if (!L.length) {
-    $("ed").innerHTML = `<h1 class="h">Diario</h1><div class="empty big"><b>Ancora nessun allenamento registrato</b>Apri una scheda e premi <b style="display:inline;font:inherit;color:var(--ink)">Registra allenamento</b> a fine sessione: qui vedrai frequenza, carichi e record nel tempo.</div><button class="addex" data-a="goschede">Vai alle schede</button>`;
+    $("ed").innerHTML = `<h1 class="h">Diario</h1><div class="empty big"><b>Ancora nessun allenamento registrato</b>Apri una scheda e premi <b style="display:inline;font:inherit;color:var(--ink)">Allenati ora</b> per allenarti con il timer, oppure <b style="display:inline;font:inherit;color:var(--ink)">Registra a mano</b> a fine sessione: qui vedrai frequenza, carichi e record nel tempo.</div><button class="addex" data-a="goschede">Vai alle schede</button>`;
     return;
   }
   const now = new Date(), mk0 = (y, m) => `${y}-${String(m + 1).padStart(2, "0")}`;
@@ -880,6 +884,7 @@ $("ed").addEventListener("click", e => {
     return commit();
   }
   if (a === "logw") return startLog();
+  if (a === "exp") return exportFit();
   if (a === "livew") { if (S.live) { S.view = "live"; return commit(); } return startLive(); }
   const w = W(), i = +b.dataset.i, x = w.ex[i];
   if (a === "add") return openPick(-1);
@@ -987,11 +992,13 @@ function buildFit(w) {
   return enc.close();
 }
 window.buildFit = buildFit;
-$("ex").onclick = () => {
-  const w = W();
+function exportFit() {
+  const w = W(); if (!w.ex.length) return;
   try { download(`ANT_${fileName(w.name)}.fit`, buildFit(w), "application/octet-stream"); toast("File .fit scaricato: copialo in GARMIN › NewFiles"); }
   catch (err) { console.error(err); toast("Errore nella creazione del file: " + err.message); }
-};
+}
+$("lv").onclick = () => { if (S.live) { S.view = "live"; commit(); window.scrollTo({ top: 0 }); } else startLive(); };
+$("lg").onclick = () => startLog();
 $("bk").onclick = () => { download(`ANT_backup_${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: "ant-schede", v: 2, w: S.w, log: S.log }, null, 1), "application/json"); toast("Backup scaricato"); };
 $("im").onclick = () => $("imf").click();
 $("imf").onchange = async e => {
@@ -1006,7 +1013,7 @@ $("imf").onchange = async e => {
   } catch (err) { toast("File non valido: " + err.message); }
 };
 // ---- app installabile e aggiornamenti ----
-const APP_VERSION = "1.0.0";
+const APP_VERSION = "1.0.1";
 try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
 let deferredInstall = null;
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredInstall = e; $("inst").hidden = false; });
