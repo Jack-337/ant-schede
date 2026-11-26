@@ -1,6 +1,6 @@
 // Copia offline dell'app ANT. Cambiare VERSION a ogni aggiornamento.
-const VERSION = "ant-1.0.1";
-const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png"];
+const VERSION = "ant-1.1.0";
+const CORE = ["./", "./index.html", "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png", "./guida-ANT.pdf"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE.map(u => new Request(u, { cache: "reload" }))))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION && k !== "ant-fonts").map(k => caches.delete(k)))).then(() => self.clients.claim())); });
 self.addEventListener("message", e => { if (e.data === "skip") self.skipWaiting(); });

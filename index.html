@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<script>try{var t=localStorage.getItem("ant-theme")||"dark";document.documentElement.dataset.theme=t==="auto"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <meta name="description" content="Schede di allenamento, timer e diario della home gym ANT">
@@ -21,7 +22,9 @@
    PICTURE: la scheda stessa: esercizi come righe numerate in rosso, serie leggibili da lontano
    COLOUR and TYPE: nero pieno, grigi d'officina, rosso ANT come unico accento; Saira come il lettering del logo
    LAYOUT: barra con logo, colonna schede a sinistra, editor al centro, export fisso in basso */
-:root{--bg:#0d0d0e;--panel:#18181a;--panel2:#202023;--line:#2c2c30;--grey:#8c8c8c;--ink:#f3f3f3;--red:#e30d0f;--red2:#ff2b2d;color-scheme:dark}
+:root{--bg:#0d0d0e;--panel:#18181a;--panel2:#202023;--line:#2c2c30;--grey:#8c8c8c;--ink:#f3f3f3;--red:#e30d0f;--red2:#ff2b2d;--aside:#111113;--dash:#44444a;--dis:#3a3a3e;--mute:#5a5a60;--overbg:#2a0b0c;--foot:#000;--tipbg:#000;--c-grid:#2c2c30;--c-lab:#8c8c8c;--c-bar:#5a5a60;--fig:#222226;--h0:#303035;--h1:#6e1416;--h2:#b70d10;--h3:#ff2b2d;--hm1:#b30a0c;--onink:#000;--hot:rgba(227,13,15,.12);color-scheme:dark}
+:root[data-theme=light]{--bg:#f3f3f1;--panel:#ffffff;--panel2:#ebebe8;--line:#d6d6d2;--grey:#676767;--ink:#141414;--red:#e30d0f;--red2:#c00a0c;--aside:#ebebe8;--dash:#b5b5b0;--dis:#cfcfcb;--mute:#9a9a96;--overbg:#fde7e7;--foot:#ffffff;--tipbg:#ffffff;--c-grid:#e2e2de;--c-lab:#6b6b6b;--c-bar:#bdbdb8;--fig:#dededa;--h0:#d2d2ce;--h1:#f4b4b5;--h2:#ea5a5c;--h3:#e30d0f;--hm1:#f08a8b;--onink:#fff;--hot:rgba(227,13,15,.08);color-scheme:light}
+.top{--ink:#f3f3f3;--line:#3a3a3e;--grey:#9a9a9a;--panel2:#202023;--onink:#000;color:var(--ink)}
 *{box-sizing:border-box;min-width:0}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Saira,system-ui,sans-serif;overflow-x:clip}
 button,input,textarea{font:inherit;color:inherit}
@@ -33,13 +36,13 @@ button{cursor:pointer}
 .ghost{background:transparent;border:1px solid var(--line);border-radius:8px;padding:0 14px;min-height:44px;color:var(--ink)}
 .ghost:hover{border-color:var(--grey)}
 .wrap{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:calc(100vh - 73px)}
-aside{border-right:1px solid var(--line);padding:20px 16px;background:#111113}
+aside{border-right:1px solid var(--line);padding:20px 16px;background:var(--aside)}
 aside h2,.lbl{font:600 13px/1.2 Saira,sans-serif;color:var(--grey);margin:0 0 10px}
 .wk{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:8px}
 .wk b{display:block;font:700 18px/1.2 'Saira Condensed',Saira,sans-serif}
 .wk span{font-size:13px;color:var(--grey)}
 .wk.on{border-left-color:var(--red);background:var(--panel2)}
-.add{width:100%;min-height:44px;border:1px dashed #44444a;background:transparent;border-radius:8px;color:var(--grey)}
+.add{width:100%;min-height:44px;border:1px dashed var(--dash);background:transparent;border-radius:8px;color:var(--grey)}
 .add:hover{color:var(--ink);border-color:var(--grey)}
 main{padding:24px max(3vw,16px) 120px;max-width:980px;width:100%}
 .title{width:100%;background:transparent;border:0;border-bottom:2px solid var(--line);font:800 clamp(30px,5vw,46px)/1.05 'Saira Condensed',Saira,sans-serif;padding:4px 0 8px}
@@ -67,7 +70,7 @@ main{padding:24px max(3vw,16px) 120px;max-width:980px;width:100%}
 .opts{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:end;margin:8px 0 10px}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .seg button{border:0;background:transparent;padding:0 14px;min-height:40px;color:var(--grey)}
-.seg button.on{background:var(--ink);color:#000;font-weight:600}
+.seg button.on{background:var(--ink);color:var(--onink);font-weight:600}
 .fld{display:flex;flex-direction:column;gap:4px}
 .fld>span{font-size:13px;color:var(--grey)}
 .stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -84,18 +87,18 @@ td:first-child{color:var(--grey);font-size:14px;white-space:nowrap;width:70px}
 .presets{display:flex;gap:4px;flex-wrap:wrap}
 .presets button{border:1px solid var(--line);background:transparent;border-radius:6px;padding:0 8px;min-height:32px;font-size:13px;color:var(--grey)}
 .presets button.on{border-color:var(--red);color:var(--ink)}
-.empty{border:1px dashed #44444a;border-radius:10px;padding:28px;text-align:center;color:var(--grey);margin-bottom:12px}
+.empty{border:1px dashed var(--dash);border-radius:10px;padding:28px;text-align:center;color:var(--grey);margin-bottom:12px}
 .addex{width:100%;min-height:52px;border:1px solid var(--line);background:var(--panel2);border-radius:10px;font-weight:600}
 .addex:hover{border-color:var(--red)}
-.foot{position:fixed;left:0;right:0;bottom:0;background:#000;border-top:1px solid var(--line);padding:12px max(3vw,16px) calc(12px + env(safe-area-inset-bottom));display:flex;gap:14px;align-items:center;flex-wrap:wrap;z-index:6}
+.foot{position:fixed;left:0;right:0;bottom:0;background:var(--foot);border-top:1px solid var(--line);padding:12px max(3vw,16px) calc(12px + env(safe-area-inset-bottom));display:flex;gap:14px;align-items:center;flex-wrap:wrap;z-index:6}
 .foot p{margin:0;flex:1 1 260px;font-size:14px;color:var(--grey)}
-.fbtn{display:flex;gap:10px;flex:1 1 360px;justify-content:flex-end}.fbtn button{min-height:52px}.fbtn .go{flex:1 1 auto;max-width:280px;justify-content:center;font-size:20px}.fbtn .ghost{flex:0 1 auto;font-weight:600;background:transparent;border:2px solid var(--red);color:#fff;white-space:nowrap}.fbtn .ghost:hover{background:rgba(227,13,15,.15)}
+.fbtn{display:flex;gap:10px;flex:1 1 360px;justify-content:flex-end}.fbtn button{min-height:52px}.fbtn .go{flex:1 1 auto;max-width:280px;justify-content:center;font-size:20px}.fbtn .ghost{flex:0 1 auto;font-weight:600;background:transparent;border:2px solid var(--red);color:var(--ink);white-space:nowrap}.fbtn .ghost:hover{background:rgba(227,13,15,.15)}
 .ghost.exp{display:inline-flex;gap:8px;align-items:center}.ghost:disabled{opacity:.45;cursor:not-allowed}
 @media(max-width:600px){.foot p{display:none}.fbtn{flex:1 1 100%}.fbtn .go{max-width:none;flex:1.4 1 0}.fbtn .ghost{flex:1 1 0;padding:0 8px;font-size:15px}}
 .foot p b{color:var(--ink);font-weight:600}
 .go{background:var(--red);border:0;border-radius:8px;min-height:48px;padding:0 22px;font:700 18px/1 'Saira Condensed',Saira,sans-serif;color:#fff;display:inline-flex;gap:10px;align-items:center}
 .go:hover{background:var(--red2)}
-.go:disabled{background:#3a3a3e;color:var(--grey);cursor:not-allowed}
+.go:disabled{background:var(--dis);color:var(--grey);cursor:not-allowed}
 .dlg{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-start;justify-content:center;padding:6vh 16px;z-index:10}
 .dlg.open{display:flex}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:12px;width:min(620px,100%);max-height:84vh;display:flex;flex-direction:column}
@@ -112,9 +115,9 @@ td:first-child{color:var(--grey);font-size:14px;white-space:nowrap;width:70px}
 .list .custom{border:1px dashed var(--red);margin-bottom:6px}
 .list button div{display:flex;flex-direction:column}.list small{color:var(--grey);font-size:13px}
 .list .more{color:var(--grey);padding:10px 12px;margin:0;font-size:14px}
-.chips.eq button{min-height:30px;font-size:13px;border-style:dashed}.chips.eq button.on{background:var(--ink);border-color:var(--ink);color:#000;border-style:solid}
+.chips.eq button{min-height:30px;font-size:13px;border-style:dashed}.chips.eq button.on{background:var(--ink);border-color:var(--ink);color:var(--onink);border-style:solid}
 .cnt{font-size:13px;color:var(--grey)}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#000;border-radius:8px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.2s;z-index:20;max-width:calc(100vw - 32px)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--onink);border-radius:8px;padding:10px 14px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.2s;z-index:20;max-width:calc(100vw - 32px)}
 .toast.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
 .toast button{background:transparent;border:0;font-weight:700;color:var(--red);min-height:32px}
 .help{font-size:14px;color:var(--grey);border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
@@ -122,15 +125,15 @@ td:first-child{color:var(--grey);font-size:14px;white-space:nowrap;width:70px}
 .nav{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-left:8px}
 .nav button{border:0;background:transparent;padding:0 18px;min-height:42px;color:var(--grey);font-weight:600}
 .nav button.on{background:var(--red);color:#fff}
-.ghost.hot{border-color:var(--red);color:#fff;background:rgba(227,13,15,.12)}
+.ghost.hot{border-color:var(--red);color:var(--ink);background:var(--hot)}
 .ghost.hot:hover{background:rgba(227,13,15,.25)}
-body[data-view=diario] aside,body[data-view=diario] .foot,body[data-view=guida] aside,body[data-view=guida] .foot,body[data-view=log] .foot{display:none}
-body[data-view=diario] .wrap,body[data-view=guida] .wrap,body[data-view=log] .wrap{grid-template-columns:1fr}body[data-view=log] aside{display:none}body[data-view=log] main{max-width:980px;margin:0 auto}
+body[data-view=diario] aside,body[data-view=diario] .foot,body[data-view=imp] aside,body[data-view=imp] .foot,body[data-view=welcome] aside,body[data-view=welcome] .foot,body[data-view=log] .foot{display:none}
+body[data-view=diario] .wrap,body[data-view=imp] .wrap,body[data-view=welcome] .wrap,body[data-view=log] .wrap{grid-template-columns:1fr}body[data-view=log] aside{display:none}body[data-view=log] main{max-width:980px;margin:0 auto}
 body[data-view=diario] main{max-width:1120px;margin:0 auto}
 h1.h{font:800 clamp(30px,5vw,46px)/1.05 'Saira Condensed',Saira,sans-serif;margin:0 0 6px;text-wrap:balance}
 h1.h em{font-style:normal;color:var(--red2)}
 .sub{color:var(--grey);margin:0 0 20px}
-input.date{height:44px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:0 12px;font-size:16px;color-scheme:dark}
+input.date{height:44px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:0 12px;font-size:16px}
 .done{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:40px}
 .done input{accent-color:var(--red);width:22px;height:22px}
 tr.off td input.n{opacity:.4}
@@ -140,17 +143,17 @@ tr.off td input.n{opacity:.4}
 .grid2{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:16px}
 .fig{position:relative;height:280px}.fig>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .fig.sm{height:200px}
-.tip{position:absolute;pointer-events:none;background:#000;border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));display:none;z-index:2}
+.tip{position:absolute;pointer-events:none;background:var(--tipbg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:13px;white-space:nowrap;transform:translate(-50%,calc(-100% - 12px));display:none;z-index:2}
 .tip b{display:block;font-size:15px}
 .pr{display:flex;flex-direction:column;gap:12px}
 .pr div{border-left:3px solid var(--line);padding-left:12px}
 .pr div.best{border-left-color:var(--red)}
 .pr b{display:block;font:700 26px/1.1 'Saira Condensed',Saira,sans-serif;white-space:nowrap}
 .pr span{font-size:13px;color:var(--grey)}
-.up{color:#fff}.up::before{content:"▲ ";color:var(--red2);font-size:.7em}
+.up{color:var(--ink)}.up::before{content:"▲ ";color:var(--red2);font-size:.7em}
 .heat{display:grid;grid-auto-flow:column;grid-template-rows:repeat(7,auto);grid-auto-columns:minmax(0,1fr);gap:3px;max-width:420px}.heat i{aspect-ratio:1}
 .heat i{border-radius:3px;background:var(--panel2)}
-.heat i.l1{background:#b30a0c}.heat i.l2{background:var(--red)}.heat i.fut{background:transparent}
+.heat i.l1{background:var(--hm1)}.heat i.l2{background:var(--red)}.heat i.fut{background:transparent}
 .hleg{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--grey);margin-top:8px}
 .hleg i{width:12px;height:12px;border-radius:3px;display:inline-block}
 .sess{border-top:1px solid var(--line)}
@@ -160,11 +163,11 @@ tr.off td input.n{opacity:.4}
 .sess summary span{color:var(--grey);font-size:14px;flex:1}
 .sess ul{margin:0 0 12px;padding-left:18px;color:var(--grey);font-size:14px}
 .sess ul b{color:var(--ink);font-weight:600}
-body[data-view=guida] main{max-width:820px;margin:0 auto}
+body[data-view=imp] main,body[data-view=welcome] main{max-width:820px;margin:0 auto}
 .gd{display:grid;grid-template-columns:56px minmax(0,1fr);gap:16px;padding:20px 0;border-top:1px solid var(--line)}
 .gd .gn{width:48px;height:48px;border-radius:10px;background:var(--red);display:grid;place-items:center;font:800 26px/1 'Saira Condensed',sans-serif;color:#fff}
 .gd h2{font:700 24px/1.2 'Saira Condensed',Saira,sans-serif;margin:8px 0 8px}
-.gd ol,.gd ul{margin:0;padding-left:20px}.gd li{margin-bottom:6px;max-width:68ch}.gd li b,.gd p b{color:#fff}
+.gd ol,.gd ul{margin:0;padding-left:20px}.gd li{margin-bottom:6px;max-width:68ch}.gd li b,.gd p b{color:var(--ink)}
 .gd p{color:var(--grey);margin:8px 0 0;max-width:68ch}
 body[data-view=live] aside,body[data-view=live] .foot{display:none}body[data-view=live] .wrap{grid-template-columns:1fr}body[data-view=live] main{max-width:640px;margin:0 auto;padding-bottom:40px}
 .lv .lvtop{display:flex;align-items:center;gap:10px}.lvtop>div{flex:1}.lvtop b{display:block;font:700 20px/1.2 'Saira Condensed',Saira,sans-serif}.lvtop span{color:var(--grey);font-size:14px}
@@ -173,20 +176,20 @@ body[data-view=live] aside,body[data-view=live] .foot{display:none}body[data-vie
 .clock{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px;text-align:center;margin:14px 0}
 .clock span{display:block;color:var(--grey);font-size:15px}.clock b{display:block;font:800 clamp(72px,22vw,120px)/1 'Saira Condensed',Saira,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .clock em{font-style:normal;color:var(--grey);font-size:15px}
-.clock.over{border-color:var(--red);background:#2a0b0c}.clock.over b{color:var(--red2)}.clock.over span{color:#fff;font-weight:600}
+.clock.over{border-color:var(--red);background:var(--overbg)}.clock.over b{color:var(--red2)}.clock.over span{color:var(--ink);font-weight:600}
 .go.big{width:100%;min-height:64px;font-size:24px;justify-content:center;margin:6px 0 10px}
 .lvrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.lvrow .ghost{flex:1 1 140px}
 .adj{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0}
 .adj .lbl{display:block;font-size:14px;color:var(--grey);margin-bottom:8px}.adjr{display:flex;gap:10px;flex-wrap:wrap}
 .ad{display:flex;align-items:center;flex:1 1 150px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .ad button{width:52px;height:56px;border:0;background:var(--panel2);font-size:26px}.ad b{flex:1;text-align:center;font:700 30px/1 'Saira Condensed',Saira,sans-serif;white-space:nowrap}.ad small{font:400 14px Saira,sans-serif;color:var(--grey);margin-left:4px}
-.hint{font-size:14px;color:var(--grey);margin:0 0 8px}.hint.up{color:#fff}.hint.up::before{content:"▲ ";color:var(--red2)}
+.hint{font-size:14px;color:var(--grey);margin:0 0 8px}.hint.up{color:var(--ink)}.hint.up::before{content:"▲ ";color:var(--red2)}
 .nx{margin:0 0 4px;font-size:16px;color:var(--grey)}.nx b{color:var(--ink)}
 .lvlist{border-top:1px solid var(--line);padding-top:12px;margin-top:8px}.lvlist .lbl{display:block;font-size:13px;color:var(--grey);margin-bottom:8px}
 .lvi{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;background:transparent;border:0;border-radius:8px;padding:8px;min-height:44px}
 .lvi b{font:700 18px 'Saira Condensed',sans-serif;color:var(--grey)}.lvi em{font-style:normal;color:var(--grey);font-size:13px;white-space:nowrap}
-.lvi.cur{background:var(--panel2)}.lvi.cur b{color:var(--red2)}.lvi.ok span{color:var(--grey);text-decoration:line-through}.lvi.sk span{color:#5a5a60}.lvi:disabled{cursor:default}
-.resume{display:block;width:100%;text-align:left;background:#2a0b0c;border:1px solid var(--red);border-radius:10px;padding:12px 14px;margin-bottom:16px;min-height:48px}
+.lvi.cur{background:var(--panel2)}.lvi.cur b{color:var(--red2)}.lvi.ok span{color:var(--grey);text-decoration:line-through}.lvi.sk span{color:var(--mute)}.lvi:disabled{cursor:default}
+.resume{display:block;width:100%;text-align:left;background:var(--overbg);border:1px solid var(--red);border-radius:10px;padding:12px 14px;margin-bottom:16px;min-height:48px}
 body.flash::after{content:"";position:fixed;inset:0;border:10px solid var(--red);pointer-events:none;animation:fl 1.6s ease-out forwards;z-index:30}
 @keyframes fl{0%,40%{opacity:1}100%{opacity:0}}
 .bm{display:grid;grid-template-columns:repeat(2,minmax(0,150px)) minmax(0,1fr);gap:12px 20px;align-items:start}
@@ -197,9 +200,34 @@ body.flash::after{content:"";position:fixed;inset:0;border:10px solid var(--red)
 .bmr em{grid-column:2;font-style:normal;color:var(--grey);font-size:12px}
 @media(max-width:600px){.bm,.bm.sm{grid-template-columns:repeat(2,minmax(0,1fr))}.bml{grid-column:1/-1}}
 @media(prefers-reduced-motion:reduce){body.flash::after{animation:none;opacity:0}.pbar i{transition:none}}
-.upd{position:fixed;left:50%;transform:translateX(-50%);top:calc(12px + env(safe-area-inset-top));z-index:25;background:var(--ink);color:#000;border-radius:10px;padding:8px 8px 8px 14px;display:none;gap:12px;align-items:center;box-shadow:0 6px 24px rgba(0,0,0,.5);max-width:calc(100vw - 24px)}
+.upd{position:fixed;left:50%;transform:translateX(-50%);top:calc(12px + env(safe-area-inset-top));z-index:25;background:var(--ink);color:var(--onink);border-radius:10px;padding:8px 8px 8px 14px;display:none;gap:12px;align-items:center;box-shadow:0 6px 24px rgba(0,0,0,.5);max-width:calc(100vw - 24px)}
 .upd.show{display:flex}.upd{width:min(420px,calc(100vw - 24px))}.upd b{font-weight:600;flex:1}.upd button{white-space:nowrap;flex:none;background:var(--red);color:#fff;border:0;border-radius:8px;min-height:40px;padding:0 14px;font-weight:700}
-.ver{font-size:13px;color:#5a5a60;margin-top:18px}
+.ver{font-size:13px;color:var(--mute);margin-top:18px}
+.sshead{display:flex;align-items:center;gap:8px;color:var(--grey);font-size:14px;margin:4px 0 6px}.sshead b{color:var(--red2)}.sshead svg,.link svg{width:16px;height:16px;flex:none}
+.ex.ss{border-left:3px solid var(--red)}
+.link{display:flex;align-items:center;gap:8px;margin:-6px 0 12px 14px;padding:6px 10px;min-height:36px;border:1px dashed var(--dash);border-radius:8px;background:transparent;color:var(--grey);font-size:13px}
+.link.on{border-style:solid;border-color:var(--red);color:var(--ink)}.link:hover{color:var(--ink)}
+.prop{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;border:1px solid var(--red);background:var(--hot);border-radius:12px;padding:12px 14px;margin:6px 0 10px}
+.prop>div:first-child{flex:1 1 220px}.prop b{display:block;font:700 22px/1.2 'Saira Condensed',Saira,sans-serif}.prop span{font-size:13px;color:var(--grey)}
+.pbtn{display:flex;gap:8px;flex-wrap:wrap}.pbtn .go{min-height:44px;font-size:17px}.pbtn .ghost{min-height:44px}
+.feel{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:10px 0}.feel>span{font-size:14px;color:var(--grey);flex:1 1 200px}
+.rpeg{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}.rpeg button{min-height:44px;border:1px solid var(--line);background:var(--panel2);border-radius:6px;font-weight:700}
+.rpeg button.on{background:var(--red);border-color:var(--red);color:#fff}
+i.fl{font-style:normal;font-size:12px;padding:1px 6px;border-radius:10px;border:1px solid var(--line)}i.fl.f3{border-color:var(--red);color:var(--red2)}
+.set{border-top:1px solid var(--line);padding:18px 0 8px}.set h2{font:700 24px/1.2 'Saira Condensed',Saira,sans-serif;margin:0 0 6px}
+.srow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:12px 0;border-bottom:1px solid var(--line)}.srow:last-child{border-bottom:0}
+.srow>div:first-child{flex:1 1 240px}.srow b{display:block;font-weight:600}.srow span{display:block;font-size:13px;color:var(--grey)}
+.switch{width:56px;height:32px;border-radius:16px;border:1px solid var(--line);background:var(--panel2);position:relative;flex:none;padding:0}
+.switch i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--grey);transition:left .15s}
+.switch.on{background:var(--red);border-color:var(--red)}.switch.on i{left:27px;background:#fff}
+.vol{display:flex;align-items:center;gap:10px}.vol input{width:160px;accent-color:var(--red)}.vol output{min-width:44px;font-weight:600;text-align:right}
+.nin{display:flex;align-items:center;gap:6px}.nin span{color:var(--grey);font-size:14px}
+a.go,a.ghost{text-decoration:none;display:inline-flex;align-items:center;gap:8px;color:inherit}a.go{color:#fff}a.go svg,a.ghost svg,.ghost svg{width:18px;height:18px}
+.ghost.danger{color:var(--red2)}.ghost.danger.armed{background:var(--red);border-color:var(--red);color:#fff}
+.wel .wl{list-style:none;counter-reset:w;padding:0;margin:18px 0}.wel .wl li{counter-increment:w;display:grid;grid-template-columns:48px minmax(0,1fr);gap:4px 14px;padding:14px 0;border-top:1px solid var(--line)}
+.wel .wl li::before{content:counter(w);grid-row:span 2;width:44px;height:44px;border-radius:10px;background:var(--red);color:#fff;display:grid;place-items:center;font:800 24px/1 'Saira Condensed',sans-serif}
+.wel .wl b{font:700 22px/1.2 'Saira Condensed',Saira,sans-serif}.wel .wl span{color:var(--grey)}.wel .wl i{font-style:normal;color:var(--ink);font-weight:600}
+@media(prefers-reduced-motion:reduce){.switch i{transition:none}}
 .empty.big{padding:48px 24px}
 .empty.big b{display:block;color:var(--ink);font:700 24px/1.2 'Saira Condensed',Saira,sans-serif;margin-bottom:6px}
 @media(max-width:820px){.grid2{grid-template-columns:1fr}}
@@ -211,11 +239,9 @@ body.flash::after{content:"";position:fixed;inset:0;border:10px solid var(--red)
 <body>
 <div class="top">
   <img src="data:image/png;base64,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" alt="ANT Private Training Facility">
-  <div class="nav" id="nav"><button data-v="schede">Schede</button><button data-v="diario">Diario</button><button data-v="guida">Guida</button></div>
+  <div class="nav" id="nav"><button data-v="schede">Schede</button><button data-v="diario">Diario</button><button data-v="imp">Impostazioni</button></div>
   <div class="sp"></div>
   <button class="ghost hot" id="inst" hidden>Installa app</button>
-  <button class="ghost" id="bk" title="Salva tutte le schede in un file di backup">Backup<span class="lbl2"> schede</span></button>
-  <button class="ghost" id="im">Importa</button>
   <input type="file" id="imf" accept=".json,application/json" hidden>
 </div>
 <div class="wrap">
@@ -223,7 +249,7 @@ body.flash::after{content:"";position:fixed;inset:0;border:10px solid var(--red)
     <h2>Le tue schede</h2>
     <div id="wks"></div>
     <button class="add" id="nw">+ Nuova scheda</button>
-    <div class="help">Prima volta qui? <button class="ghost" style="width:100%;margin-top:8px" id="gg">Leggi la guida</button></div>
+    <div class="help">Serve aiuto? <button class="ghost" style="width:100%;margin-top:8px" id="gg">Guida e impostazioni</button></div>
   </aside>
   <main id="ed"></main>
 </div>
@@ -268,11 +294,13 @@ const I = {
   up: '<path d="M12 19V5M6 11l6-6 6 6"/>', down: '<path d="M12 5v14M6 13l6 6 6-6"/>',
   dup: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
   del: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  dl: '<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
   snd: '<path d="M4 10v4h4l5 4V6L8 10H4zM16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/>', mute: '<path d="M4 10v4h4l5 4V6L8 10H4zM17 10l4 4M21 10l-4 4"/>'
 };
 const svg = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${I[k]}</svg>`;
 const findIt = n => CAT.find(x => x.it === n);
-const mk = (n, mode, sets, v, kg, rest) => { const c = findIt(n); return { id: uid(), n, c: c ? c.c : null, e: c ? c.e : null, mode, same: true, sets: Array.from({length: sets}, () => ({v, kg})), rest }; };
+const mk = (n, mode, sets, v, kg, rest) => { const c = findIt(n); return { id: uid(), n, c: c ? c.c : null, e: c ? c.e : null, mode, same: true, sets: Array.from({length: sets}, () => ({v, kg})), rest, restAfter: 120 }; };
 
 function sample() {
   return [{ id: uid(), name: "Full body A", desc: "Scheda di esempio: modificala o creane una nuova", ex: [
@@ -282,10 +310,42 @@ function sample() {
 }
 let S;
 try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) { S = null; }
-if (!S || !Array.isArray(S.w) || !S.w.length) S = { w: sample(), cur: null, view: "guida" };
+if (!S || !Array.isArray(S.w) || !S.w.length) S = { w: sample(), cur: null, view: "welcome" };
 if (!S.w.some(w => w.id === S.cur)) S.cur = S.w[0].id;
 if (!Array.isArray(S.log)) S.log = [];
-if (!["schede", "diario", "log", "guida", "live"].includes(S.view) || (S.view === "log" && !S.draft) || (S.view === "live" && !S.live)) S.view = "schede";
+const CFG0 = { theme: "dark", vol: 0.7, vib: true, cd: true, wake: true, rest: 90, restAfter: 120, incUp: 2.5, incLow: 5 };
+S.cfg = Object.assign({}, CFG0, S.cfg || {});
+S.w.forEach(w => w.ex.forEach(x => { if (x.restAfter === undefined) x.restAfter = x.rest; }));
+if (S.view === "guida") S.view = "imp";
+if (S.live && !S.live.q) { S.live.q = planSteps(S.live.ex); S.live.k = Math.max(0, S.live.q.findIndex(([i, j]) => i === S.live.i && j === S.live.j)); }
+if (!["schede", "diario", "log", "imp", "welcome", "live"].includes(S.view) || (S.view === "log" && !S.draft) || (S.view === "live" && !S.live)) S.view = "schede";
+// tema
+const mqDark = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
+function applyTheme() {
+  const t = S.cfg.theme, dark = t === "dark" || (t === "auto" && (!mqDark || mqDark.matches));
+  document.documentElement.dataset.theme = dark ? "dark" : "light";
+  try { localStorage.setItem("ant-theme", t); } catch (e) {}
+}
+applyTheme();
+if (mqDark && mqDark.addEventListener) mqDark.addEventListener("change", () => { if (S.cfg.theme === "auto") { applyTheme(); render(); } });
+// gruppi di superserie: esercizi consecutivi collegati
+function groupsOf(ex) { const g = []; let cur = []; ex.forEach((x, i) => { cur.push(i); if (!x.link || i === ex.length - 1) { g.push(cur); cur = []; } }); return g; }
+const groupOf = (ex, i) => groupsOf(ex).find(g => g.includes(i));
+function syncGroup(ex, i) {
+  const g = groupOf(ex, i), n = ex[i].sets.length;
+  g.forEach(k => { const z = ex[k]; while (z.sets.length < n) z.sets.push({ ...z.sets[z.sets.length - 1] }); z.sets.length = n; });
+}
+// sequenza dei passi di allenamento: [esercizio, serie, pausa dopo in secondi]
+function planSteps(ex) {
+  const q = [];
+  for (const g of groupsOf(ex)) {
+    if (g.length === 1) { const i = g[0], x = ex[i]; x.sets.forEach((s, j) => q.push([i, j, j < x.sets.length - 1 ? x.rest : (x.restAfter ?? x.rest)])); continue; }
+    const R = Math.max(...g.map(i => ex[i].sets.length)), L = ex[g[g.length - 1]];
+    for (let r = 0; r < R; r++) g.forEach((i, m) => { if (r >= ex[i].sets.length) return; const last = m === g.length - 1; q.push([i, r, last ? (r < R - 1 ? L.rest : (L.restAfter ?? L.rest)) : (ex[i].restAfter || 0)]); });
+  }
+  if (q.length) q[q.length - 1][2] = 0;
+  return q;
+}
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 const W = () => S.w.find(w => w.id === S.cur);
 
@@ -293,8 +353,9 @@ const W = () => S.w.find(w => w.id === S.cur);
 const secPerRep = 3;
 function stats(w) {
   let sets = 0, sec = 0, vol = 0;
-  for (const x of w.ex) for (const s of x.sets) {
-    sets++; sec += (x.mode === "reps" ? s.v * secPerRep : s.v) + x.rest;
+  for (const [i, j, r] of planSteps(w.ex)) {
+    const x = w.ex[i], s = x.sets[j];
+    sets++; sec += (x.mode === "reps" ? s.v * secPerRep : s.v) + r;
     if (x.mode === "reps") vol += s.v * (s.kg || 0);
   }
   return { n: w.ex.length, sets, min: Math.round(sec / 60), vol: Math.round(vol) };
@@ -324,20 +385,29 @@ function subOf(x) {
   const m = bitsOf(c.p).map(k => MUS[k]).join(", ");
   return esc([c.it && c.en !== c.it ? c.en : "", c.cat.it, m].filter(Boolean).join(" · "));
 }
-function exCard(x, i, n) {
-  const rest = [60, 90, 120, 180];
-  return `<div class="ex"><div class="num">${i + 1}</div><div class="body">
+function restField(label, key, val, i, presets) {
+  return `<div class="fld"><span>${label}</span><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><input class="n" type="number" inputmode="numeric" min="0" value="${val}" data-f="${key}" data-i="${i}" aria-label="${label} in secondi"><div class="presets">${presets.map(r => `<button class="${val === r ? "on" : ""}" data-a="${key}" data-v="${r}" data-i="${i}">${r}</button>`).join("")}</div></div></div>`;
+}
+function exCard(x, i, n, ex) {
+  const g = groupOf(ex, i), inG = g.length > 1, last = i === g[g.length - 1], end = i === n - 1;
+  const rests = !inG
+    ? restField("Recupero tra le serie (sec)", "rest", x.rest, i, [60, 90, 120, 180]) + (end ? "" : restField("Pausa prima del prossimo esercizio (sec)", "restAfter", x.restAfter, i, [60, 90, 120, 180]))
+    : !last ? restField("Pausa verso il prossimo esercizio (sec)", "restAfter", x.restAfter, i, [0, 15, 30, 60])
+    : restField("Recupero tra i giri (sec)", "rest", x.rest, i, [60, 90, 120, 180]) + (end ? "" : restField("Pausa dopo la superserie (sec)", "restAfter", x.restAfter, i, [60, 90, 120, 180]));
+  const head = inG && i === g[0] ? `<div class="sshead">${svg("link")}<span><b>${g.length > 2 ? "Circuito" : "Superserie"}</b> · ${x.sets.length} giri · gli esercizi si alternano, poi recupero</span></div>` : "";
+  const link = end ? "" : `<button class="link${x.link ? " on" : ""}" data-a="link" data-i="${i}">${svg("link")}${x.link ? "In superserie con il successivo · tocca per scollegare" : "Collega al successivo (superserie)"}</button>`;
+  return `${head}<div class="ex${inG ? " ss" : ""}"><div class="num">${i + 1}</div><div class="body">
   <div class="head"><button class="name" data-a="pick" data-i="${i}">${esc(x.n)}<small>${subOf(x)} · tocca per cambiare</small></button>
   <div class="icons"><button class="ic" data-a="up" data-i="${i}" title="Sposta su" ${i ? "" : "disabled"}>${svg("up")}</button><button class="ic" data-a="down" data-i="${i}" title="Sposta giù" ${i < n - 1 ? "" : "disabled"}>${svg("down")}</button><button class="ic" data-a="dup" data-i="${i}" title="Duplica">${svg("dup")}</button><button class="ic del" data-a="del" data-i="${i}" title="Elimina">${svg("del")}</button></div></div>
   <div class="opts">
     <div class="fld"><span>Tipo</span><div class="seg"><button class="${x.mode === "reps" ? "on" : ""}" data-a="mode" data-v="reps" data-i="${i}">Ripetizioni</button><button class="${x.mode === "time" ? "on" : ""}" data-a="mode" data-v="time" data-i="${i}">Tempo</button></div></div>
-    <div class="fld"><span>Serie</span><div class="stepper"><button data-a="sm" data-i="${i}" aria-label="Meno serie">−</button><output>${x.sets.length}</output><button data-a="sp" data-i="${i}" aria-label="Più serie">+</button></div></div>
-    <div class="fld"><span>Recupero (sec)</span><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><input class="n" type="number" inputmode="numeric" min="0" value="${x.rest}" data-f="rest" data-i="${i}" aria-label="Recupero in secondi"><div class="presets">${rest.map(r => `<button class="${x.rest === r ? "on" : ""}" data-a="rest" data-v="${r}" data-i="${i}">${r}</button>`).join("")}</div></div></div>
+    <div class="fld"><span>${inG ? "Giri" : "Serie"}</span><div class="stepper"><button data-a="sm" data-i="${i}" aria-label="Meno">−</button><output>${x.sets.length}</output><button data-a="sp" data-i="${i}" aria-label="Più">+</button></div></div>
+    ${rests}
   </div>
   ${setRows(x, i)}
   <label class="chk"><input type="checkbox" data-a="same" data-i="${i}" ${x.same ? "" : "checked"}> Serie diverse (es. piramidale)</label>
   ${x.c === null ? `<div class="fld" style="margin-top:6px"><span>Muscoli allenati (per la mappa nel diario)</span><div class="chips">${MUS.map((m, k) => `<button class="${(x.pm || 0) & B(k) ? "on" : ""}" data-a="pm" data-m="${k}" data-i="${i}">${m}</button>`).join("")}</div></div>` : ""}
-  </div></div>`;
+  </div></div>${link}`;
 }
 let ros = [];
 function render() {
@@ -346,7 +416,8 @@ function render() {
   document.querySelectorAll("#nav button").forEach(b => b.classList.toggle("on", b.dataset.v === (S.view === "log" || S.view === "live" ? "schede" : S.view)));
   if (S.view === "diario") return renderDiary();
   if (S.view === "log") return renderLog();
-  if (S.view === "guida") return renderGuide();
+  if (S.view === "imp") return renderSettings();
+  if (S.view === "welcome") return renderWelcome();
   if (S.view === "live") return renderLive();
   renderEditor();
 }
@@ -356,7 +427,7 @@ function renderEditor() {
   <textarea class="desc" id="ds" rows="1" placeholder="Note (facoltative)">${esc(w.desc)}</textarea>
   <div class="bar"><button class="ghost exp" data-a="exp" ${w.ex.length ? "" : "disabled"}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg>Esporta per Garmin</button><button class="ghost" data-a="dupw">Duplica scheda</button><button class="ghost" data-a="delw">Elimina scheda</button></div>
   <div class="stats" id="st"></div>
-  ${w.ex.length ? w.ex.map((x, i) => exCard(x, i, w.ex.length)).join("") : `<div class="empty">Nessun esercizio. Aggiungi il primo qui sotto.</div>`}
+  ${w.ex.length ? w.ex.map((x, i) => exCard(x, i, w.ex.length, w.ex)).join("") : `<div class="empty">Nessun esercizio. Aggiungi il primo qui sotto.</div>`}
   <button class="addex" data-a="add">+ Aggiungi esercizio</button>`;
   renderStats();
 }
@@ -404,6 +475,7 @@ function renderLog() {
     <table><tr><th></th><th>${x.mode === "reps" ? "Rip." : "Sec."}</th><th>Kg</th><th>Fatta</th></tr>
     ${x.sets.map((s, j) => `<tr class="${s.done ? "" : "off"}"><td>Serie ${j + 1}</td><td><input class="n" type="number" inputmode="numeric" min="0" value="${s.v}" data-lf="v" data-i="${i}" data-j="${j}"></td><td><input class="n" type="number" inputmode="decimal" min="0" step="0.5" value="${s.kg || ""}" placeholder="—" data-lf="kg" data-i="${i}" data-j="${j}"></td><td><label class="done"><input type="checkbox" data-a="ldone" data-i="${i}" data-j="${j}" ${s.done ? "checked" : ""} aria-label="Serie fatta"></label></td></tr>`).join("")}
     </table></div></div>`).join("")}
+  ${rpeRow(D.rpe, "drpe")}
   <textarea class="desc" id="ln" placeholder="Come è andata? (facoltativo)">${esc(D.note)}</textarea>
   <div class="bar" style="margin-top:16px"><button class="go" data-a="lsave">Salva nel diario</button><button class="ghost" data-a="lcancel">Annulla</button></div>`;
 }
@@ -411,7 +483,7 @@ function saveLog() {
   const D = S.draft;
   const ex = D.ex.map(x => ({ n: x.n, c: x.c, e: x.e, pm: x.pm, mode: x.mode, sets: x.sets.filter(s => s.done && s.v > 0).map(s => ({ v: s.v, kg: s.kg || 0 })) })).filter(x => x.sets.length);
   if (!ex.length) return toast("Nessuna serie segnata come fatta");
-  const en = { id: uid(), date: D.date, wId: D.wId, wName: D.wName, note: D.note, ex };
+  const en = { id: uid(), date: D.date, wId: D.wId, wName: D.wName, note: D.note, ...(D.rpe ? { rpe: D.rpe } : {}), ex };
   S.draft = null; storeSession(en);
 }
 // ---- salvataggio sessione (manuale o live) ----
@@ -464,10 +536,10 @@ const BODY_BACK = [
   [13, [[96,246],[97,280],[99,272],[99,242]]],
   [15, [[72,304],[68,330],[74,362],[84,366],[92,336],[92,306]]],
 ];
-const heat = v => v <= 0 ? "#303035" : v < 0.34 ? "#6e1416" : v < 0.67 ? "#b70d10" : "#ff2b2d";
+const heat = v => v <= 0 ? "var(--h0)" : v < 0.34 ? "var(--h1)" : v < 0.67 ? "var(--h2)" : "var(--h3)";
 function figure(parts, n, label) {
-  const poly = (m, pts) => `<polygon points="${pts.map(p => p.join(",")).join(" ")}" fill="${m === null ? "#222226" : heat(n[m])}" stroke="#0d0d0e" stroke-width="1.4" stroke-linejoin="round">${m === null ? "" : `<title>${MUS[m]}</title>`}</polygon>`;
-  return `<figure><svg viewBox="0 0 200 400" role="img" aria-label="${label}"><circle cx="100" cy="34" r="17" fill="#222226"/><rect x="92" y="48" width="16" height="12" fill="#222226"/>${parts.map(([m, pts]) => poly(m, pts) + poly(m, pts.map(([x, y]) => [200 - x, y]))).join("")}</svg><figcaption>${label}</figcaption></figure>`;
+  const poly = (m, pts) => `<polygon points="${pts.map(p => p.join(",")).join(" ")}" style="fill:${m === null ? "var(--fig)" : heat(n[m])};stroke:var(--bg)" stroke-width="1.4" stroke-linejoin="round">${m === null ? "" : `<title>${MUS[m]}</title>`}</polygon>`;
+  return `<figure><svg viewBox="0 0 200 400" role="img" aria-label="${label}"><circle cx="100" cy="34" r="17" style="fill:var(--fig)"/><rect x="92" y="48" width="16" height="12" style="fill:var(--fig)"/>${parts.map(([m, pts]) => poly(m, pts) + poly(m, pts.map(([x, y]) => [200 - x, y]))).join("")}</svg><figcaption>${label}</figcaption></figure>`;
 }
 function muscleScore(sessions) {
   const prim = MUS.map(() => 0), sec = MUS.map(() => 0);
@@ -483,7 +555,7 @@ function bodyMap(sessions, compact) {
   const rows = sc.map((v, i) => [v, i]).filter(r => r[0] > 0).sort((a, b) => b[0] - a[0]);
   return `<div class="bm${compact ? " sm" : ""}">${figure(BODY_FRONT, n, "Fronte")}${figure(BODY_BACK, n, "Retro")}
   <div class="bml">${rows.slice(0, compact ? 6 : 10).map(([v, i]) => `<div class="bmr"><span>${MUS[i]}</span><i><b style="width:${Math.max(4, v / max * 100)}%;background:${heat(n[i])}"></b></i><em>${prim[i] ? prim[i] + " serie" : ""}${prim[i] && sec[i] ? " + " : ""}${sec[i] ? sec[i] + " indirette" : ""}</em></div>`).join("")}
-  <div class="hleg" style="margin-top:10px">Poco <i style="background:#6e1416"></i><i style="background:#b70d10"></i><i style="background:#ff2b2d"></i> Molto</div></div></div>`;
+  <div class="hleg" style="margin-top:10px">Poco <i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i> Molto</div></div></div>`;
 }
 
 // ---- allenamento live ----
@@ -491,52 +563,63 @@ const fmtT = s => { s = Math.max(0, Math.floor(s)); const m = Math.floor(s / 60)
 const sameEx = (a, b) => (a.c === null || a.c === undefined) ? ((b.c === null || b.c === undefined) && a.n === b.n) : a.c === b.c && a.e === b.e;
 function lastFor(x) { const L = sorted(); for (let k = L.length - 1; k >= 0; k--) { const y = L[k].ex.find(z => sameEx(z, x)); if (y) return { l: L[k], y }; } return null; }
 const LOWER = B(10) | B(11) | B(12) | B(13) | B(14);
-function suggest(x, j) {
-  const plan = x.sets[j], base = { kg: plan.kg || 0, why: "" };
-  if (x.mode !== "reps") return base;
-  const h = lastFor(x); if (!h) return base;
-  const ls = h.y.sets, prev = ls[Math.min(j, ls.length - 1)];
-  if (!prev || !(prev.kg > 0)) return base;
-  const ok = ls.length >= x.sets.length && ls.every((s, k) => s.v >= x.sets[Math.min(k, x.sets.length - 1)].v);
-  const inc = (musOf(x)[0] & LOWER) ? 5 : 2.5;
-  const kg = ok ? prev.kg + inc : prev.kg;
-  return kg >= (plan.kg || 0) ? { kg, why: ok ? "up" : "same" } : base;
+// analisi dell'ultima volta: carico di partenza e proposta di aumento (da accettare)
+function history(x) {
+  if (x.mode !== "reps") return null;
+  const h = lastFor(x); if (!h) return null;
+  const ls = h.y.sets; if (!ls.some(s => s.kg > 0)) return null;
+  const all = ls.length >= x.sets.length && ls.every((s, k) => s.v >= x.sets[Math.min(k, x.sets.length - 1)].v);
+  const hard = ls.some(s => s.f === 3);
+  return { ls, ok: all && !hard, all, hard, inc: (musOf(x)[0] & LOWER) ? S.cfg.incLow : S.cfg.incUp };
 }
 const setTxt = (x, s) => x.mode === "time" ? s.v + " s" : s.v + (s.kg ? "×" + fmtN(s.kg) : "");
 function startLive() {
   const w = W(); ensureAudio();
-  S.live = { wId: w.id, wName: w.name || "Senza nome", start: Date.now(), i: 0, j: 0, phase: "ready", t0: Date.now(), note: "", beeped: false,
+  S.live = { wId: w.id, wName: w.name || "Senza nome", start: Date.now(), k: 0, phase: "ready", t0: Date.now(), note: "", beeped: false, q: planSteps(w.ex),
     ex: w.ex.map(x => {
-      const h = lastFor(x);
-      return { n: x.n, c: x.c, e: x.e, pm: x.pm, mode: x.mode, rest: x.rest,
-        last: h ? `${fdS(h.l.date)}: ${h.y.sets.map(s => setTxt(h.y, s)).join(", ")}${h.y.mode === "reps" && h.y.sets.some(s => s.kg) ? " kg" : ""}` : "",
-        sets: x.sets.map((s, j) => { const g = suggest(x, j); return { tv: s.v, tkg: s.kg || 0, v: s.v, kg: g.kg, why: g.why, st: "todo" }; }) };
+      const h = lastFor(x), hi = history(x);
+      const sets = x.sets.map((s, j) => {
+        const plan = s.kg || 0, prev = hi ? (hi.ls[Math.min(j, hi.ls.length - 1)].kg || 0) : 0, start = Math.max(plan, prev);
+        const pk = hi && hi.ok && prev > 0 && prev + hi.inc > start ? prev + hi.inc : 0;
+        return { tv: s.v, v: s.v, kg: start, pk, st: "todo" };
+      });
+      return { n: x.n, c: x.c, e: x.e, pm: x.pm, mode: x.mode, rest: x.rest, restAfter: x.restAfter, link: x.link, sets,
+        prop: sets.some(z => z.pk) ? { inc: hi.inc } : null, why: hi && !hi.ok ? (hi.hard ? "hard" : "notall") : "", dec: null,
+        last: h ? `${fdS(h.l.date)}: ${h.y.sets.map(s => setTxt(h.y, s)).join(", ")}${h.y.mode === "reps" && h.y.sets.some(s => s.kg) ? " kg" : ""}` : "" };
     }) };
-  S.view = "live"; commit(); window.scrollTo({ top: 0 }); wake();
+  [S.live.i, S.live.j] = S.live.q[0];
+  S.view = "live"; commit(); window.scrollTo({ top: 0 }); if (S.cfg.wake) wake();
 }
 const curX = () => S.live.ex[S.live.i];
-function nextTodo(L, fromI, fromJ) {
-  for (let i = fromI; i < L.ex.length; i++) for (let j = i === fromI ? fromJ : 0; j < L.ex[i].sets.length; j++) if (L.ex[i].sets[j].st === "todo") return [i, j];
-  for (let i = 0; i < L.ex.length; i++) for (let j = 0; j < L.ex[i].sets.length; j++) if (L.ex[i].sets[j].st === "todo") return [i, j];
-  return null;
-}
 function goNext(L, phase) {
-  const n = nextTodo(L, L.i, L.j);
-  if (!n) { L.phase = "end"; L.endAt = Date.now(); return; }
-  [L.i, L.j] = n; L.phase = phase; L.t0 = Date.now(); L.beeped = false; L.cd = 4;
+  const n = L.q.length; let k = -1;
+  for (let d = 1; d <= n; d++) { const kk = (L.k + d) % n, [i, j] = L.q[kk]; if (L.ex[i].sets[j].st === "todo") { k = kk; break; } }
+  if (k < 0) { L.phase = "end"; L.endAt = Date.now(); return; }
+  L.k = k; [L.i, L.j] = L.q[k]; L.phase = phase; L.t0 = Date.now(); L.beeped = false; L.cd = 4;
 }
 function liveCounts(L) { let tot = 0, done = 0, skip = 0; L.ex.forEach(x => x.sets.forEach(s => { tot++; if (s.st === "done") done++; if (s.st === "skip") skip++; })); return { tot, done, skip }; }
 function adjBox(L, i, j, title, act) {
-  const x = L.ex[i], s = x.sets[j], u = x.mode === "reps" ? "rip" : "s";
+  const x = L.ex[i], s = x.sets[j], u = x.mode === "reps" ? "rip" : "s", step = S.cfg.incUp < 2.5 ? S.cfg.incUp : 2.5;
   return `<div class="adj"><span class="lbl">${title}</span><div class="adjr">
     <div class="ad"><button data-a="ladj" data-w="${act}" data-f="v" data-d="${x.mode === "reps" ? -1 : -5}" aria-label="Meno">−</button><b>${s.v}<small>${u}</small></b><button data-a="ladj" data-w="${act}" data-f="v" data-d="${x.mode === "reps" ? 1 : 5}" aria-label="Più">+</button></div>
-    ${x.mode === "reps" ? `<div class="ad"><button data-a="ladj" data-w="${act}" data-f="kg" data-d="-2.5" aria-label="Meno kg">−</button><b>${s.kg ? fmtN(s.kg) : "—"}<small>kg</small></b><button data-a="ladj" data-w="${act}" data-f="kg" data-d="2.5" aria-label="Più kg">+</button></div>` : ""}
+    ${x.mode === "reps" ? `<div class="ad"><button data-a="ladj" data-w="${act}" data-f="kg" data-d="-${step}" aria-label="Meno kg">−</button><b>${s.kg ? fmtN(s.kg) : "—"}<small>kg</small></b><button data-a="ladj" data-w="${act}" data-f="kg" data-d="${step}" aria-label="Più kg">+</button></div>` : ""}
   </div></div>`;
 }
 function hintLine(x, s) {
-  if (s.why === "up") return `<p class="hint up">Carico suggerito: l'ultima volta hai completato tutte le ripetizioni, quindi si sale.</p>`;
-  if (s.why === "same") return `<p class="hint">Carico suggerito: lo stesso dell'ultima volta, che non avevi completato del tutto.</p>`;
+  if (x.prop && x.dec === null && s.st === "todo" && s.pk) return `<div class="prop"><div><b>Proposta: ${fmtN(s.pk)} kg</b><span>+${fmtN(x.prop.inc)} kg rispetto all'ultima volta: avevi completato tutte le ripetizioni senza serie dure.</span></div><div class="pbtn"><button class="go" data-a="pyes">Accetta</button><button class="ghost" data-a="pno">Resta a ${fmtN(s.kg)} kg</button></div></div>`;
+  if (x.dec === "yes") return `<p class="hint up">Aumento accettato: carichi aggiornati.</p>`;
+  if (x.why === "notall") return `<p class="hint">Stesso carico dell'ultima volta: non avevi completato tutte le ripetizioni.</p>`;
+  if (x.why === "hard") return `<p class="hint">Stesso carico dell'ultima volta: avevi segnato una serie come dura.</p>`;
   return "";
+}
+function feelRow(L) {
+  if (!L.prev) return "";
+  const s = L.ex[L.prev[0]].sets[L.prev[1]]; if (s.st !== "done") return "";
+  return `<div class="feel"><span>Com'è andata la serie appena fatta?</span><div class="seg">${[[1, "Facile"], [2, "Giusta"], [3, "Dura"]].map(([v, t]) => `<button class="${s.f === v ? "on" : ""}" data-a="lfeel" data-v="${v}">${t}</button>`).join("")}</div></div>`;
+}
+function groupLabel(L) {
+  const g = groupOf(L.ex, L.i); if (g.length < 2) return "";
+  return `${g.length > 2 ? "Circuito" : "Superserie"} · giro ${L.j + 1} di ${L.ex[g[0]].sets.length} · `;
 }
 function renderLive() {
   const L = S.live; if (!L) { S.view = "schede"; return render(); }
@@ -546,11 +629,11 @@ function renderLive() {
     ${L.phase === "end" ? "" : `<button class="ghost" data-a="lend">Termina</button>`}</div><div class="pbar"><i style="width:${pct}%"></i></div>`;
   if (L.phase === "end") return renderLiveEnd(top);
   const x = curX(), s = x.sets[L.j], nSets = x.sets.length;
-  const head = `<div class="lvex"><span>Esercizio ${L.i + 1} di ${L.ex.length} · serie ${L.j + 1} di ${nSets}</span><h1>${esc(x.n)}</h1>${x.last ? `<small>Ultima volta ${esc(x.last)}</small>` : ""}</div>`;
+  const head = `<div class="lvex"><span>${groupLabel(L)}Esercizio ${L.i + 1} di ${L.ex.length} · serie ${L.j + 1} di ${nSets}</span><h1>${esc(x.n)}</h1>${x.last ? `<small>Ultima volta ${esc(x.last)}</small>` : ""}</div>`;
   let mid = "";
   const target = `${x.mode === "reps" ? s.v + " rip" : s.v + " s"}${s.kg ? " × " + fmtN(s.kg) + " kg" : ""}`;
   if (L.phase === "ready") {
-    mid = `${adjBox(L, L.i, L.j, "Questa serie", "cur")}${hintLine(x, s)}
+    mid = `${feelRow(L)}${adjBox(L, L.i, L.j, "Questa serie", "cur")}${hintLine(x, s)}
       <button class="go big" data-a="lgo">Inizia serie</button>
       <div class="lvrow"><button class="ghost" data-a="lskip">Salta serie</button><button class="ghost" data-a="lskipx">Salta esercizio</button></div>`;
   } else if (L.phase === "work") {
@@ -563,7 +646,7 @@ function renderLive() {
       <p class="nx">${nx}</p>
       ${adjBox(L, L.i, L.j, "Prossima serie", "cur")}${hintLine(x, s)}
       <button class="go big" data-a="lgo">Inizia serie</button>
-      ${adjBox(L, p[0], p[1], "Serie appena fatta: correggi se serve", "prev")}
+      ${feelRow(L)}${adjBox(L, p[0], p[1], "Serie appena fatta: correggi se serve", "prev")}
       <div class="lvrow"><button class="ghost" data-a="lskip">Salta prossima serie</button>${L.i === p[0] ? `<button class="ghost" data-a="lskipx">Salta resto esercizio</button>` : ""}</div>`;
   }
   const list = `<div class="lvlist"><span class="lbl">Scheda di oggi · tocca un esercizio per passarci</span>${L.ex.map((y, i) => {
@@ -575,14 +658,20 @@ function renderLive() {
   liveTick();
 }
 function liveEntry(L) {
-  const ex = L.ex.map(x => ({ n: x.n, c: x.c, e: x.e, pm: x.pm, mode: x.mode, sets: x.sets.filter(s => s.st === "done" && s.v > 0).map(s => ({ v: s.v, kg: s.kg || 0 })) })).filter(x => x.sets.length);
-  return { id: uid(), date: today(), wId: L.wId, wName: L.wName, note: L.note, dur: Math.round(((L.endAt || Date.now()) - L.start) / 1000), live: true, ex };
+  const ex = L.ex.map(x => ({ n: x.n, c: x.c, e: x.e, pm: x.pm, mode: x.mode, sets: x.sets.filter(s => s.st === "done" && s.v > 0).map(s => ({ v: s.v, kg: s.kg || 0, ...(s.f ? { f: s.f } : {}) })) })).filter(x => x.sets.length);
+  return { id: uid(), date: today(), wId: L.wId, wName: L.wName, note: L.note, dur: Math.round(((L.endAt || Date.now()) - L.start) / 1000), live: true, ...(L.rpe ? { rpe: L.rpe } : {}), ex };
+}
+const RPE_TXT = ["", "Riposo", "Molto leggero", "Leggero", "Moderato", "Moderato", "Impegnativo", "Impegnativo", "Molto impegnativo", "Quasi al massimo", "Massimo"];
+function rpeRow(v, act) {
+  return `<div class="card rpe"><h2>Sforzo percepito</h2><p class="sub">Quanto è stato faticoso l'allenamento nel complesso? (come sul Garmin, da 1 a 10)</p>
+  <div class="rpeg">${Array.from({ length: 10 }, (_, k) => `<button class="${v === k + 1 ? "on" : ""}" data-a="${act}" data-v="${k + 1}">${k + 1}</button>`).join("")}</div><p class="sub" style="margin:8px 0 0">${v ? `<b style="color:var(--ink)">${v}/10</b> · ${RPE_TXT[v]}` : "Tocca un numero"}</p></div>`;
 }
 function renderLiveEnd(top) {
   const L = S.live, en = liveEntry(L), c = liveCounts(L), vol = sVol(en);
   $("ed").innerHTML = `<div class="lv">${top}<div class="lvex"><span>Allenamento concluso</span><h1>Bel lavoro!</h1></div>
     <div class="stats"><div><b>${fmtT(en.dur)}</b><span>durata</span></div><div><b>${c.done}</b><span>serie fatte${c.skip ? " · " + c.skip + " saltate" : ""}</span></div><div><b>${fmtN(vol)} kg</b><span>volume</span></div><div><b>${en.ex.length}</b><span>esercizi</span></div></div>
     ${en.ex.length ? `<div class="card"><h2>Muscoli allenati</h2>${bodyMap([en])}</div>` : `<div class="empty">Nessuna serie completata.</div>`}
+    ${rpeRow(L.rpe, "lrpe")}
     <textarea class="desc" id="lnote" placeholder="Come è andata? (facoltativo)">${esc(L.note)}</textarea>
     <div class="bar" style="margin-top:12px">${en.ex.length ? `<button class="go" data-a="lsave">Salva nel diario</button>` : ""}${c.done + c.skip < c.tot ? `<button class="ghost" data-a="lresume">Riprendi allenamento</button>` : ""}<button class="ghost" data-a="ldiscard">Scarta</button></div></div>`;
 }
@@ -590,10 +679,14 @@ function liveAction(a, b) {
   const L = S.live; if (!L) return;
   ensureAudio();
   if (a === "lsnd") { S.mute = !S.mute; return commit(); }
+  if (a === "lfeel") { const s = L.ex[L.prev[0]].sets[L.prev[1]]; s.f = s.f === +b.dataset.v ? undefined : +b.dataset.v; save(); return renderLive(); }
+  if (a === "pyes") { const x = curX(); x.sets.forEach(z => { if (z.st === "todo" && z.pk) z.kg = z.pk; }); x.dec = "yes"; save(); return renderLive(); }
+  if (a === "pno") { curX().dec = "no"; save(); return renderLive(); }
+  if (a === "lrpe") { L.rpe = +b.dataset.v; save(); return renderLive(); }
   if (a === "ladj") {
     const [i, j] = b.dataset.w === "prev" ? L.prev : [L.i, L.j], s = L.ex[i].sets[j], d = +b.dataset.d;
     if (b.dataset.f === "v") s.v = Math.max(1, s.v + d); else s.kg = Math.max(0, Math.round((s.kg + d) * 2) / 2);
-    if (b.dataset.w === "cur" && L.ex[i].mode === "reps" && b.dataset.f === "kg") L.ex[i].sets.forEach((z, k) => { if (k > j && z.st === "todo" && z.kg === s.kg - d) z.kg = s.kg; });
+    if (b.dataset.w === "cur" && L.ex[i].mode === "reps" && b.dataset.f === "kg") { L.ex[i].sets.forEach((z, k) => { if (k > j && z.st === "todo" && z.kg === s.kg - d) z.kg = s.kg; }); if (L.ex[i].dec === null && L.ex[i].prop) L.ex[i].dec = "no"; }
     save(); return renderLive();
   }
   if (a === "lgo") { L.phase = "work"; L.t0 = Date.now(); L.beeped = false; L.cd = 4; }
@@ -601,15 +694,15 @@ function liveAction(a, b) {
     const x = curX(), s = x.sets[L.j];
     if (x.mode === "time") s.v = Math.max(1, Math.round((Date.now() - L.t0) / 1000));
     s.st = "done"; L.prev = [L.i, L.j];
-    const rest = x.rest;
+    const rest = L.q[L.k][2];
     goNext(L, "rest");
     if (L.phase === "rest") { L.restDur = rest; if (!rest) L.phase = "ready"; }
   }
   if (a === "lskip") { curX().sets[L.j].st = "skip"; goNext(L, "ready"); }
   if (a === "lskipx") { curX().sets.forEach(z => { if (z.st === "todo") z.st = "skip"; }); goNext(L, "ready"); }
-  if (a === "ljump") { const i = +b.dataset.i, j = L.ex[i].sets.findIndex(z => z.st === "todo"); if (j >= 0) { L.i = i; L.j = j; if (L.phase !== "rest") { L.phase = "ready"; } } }
+  if (a === "ljump") { const i = +b.dataset.i, k = L.q.findIndex(([qi, qj]) => qi === i && L.ex[qi].sets[qj].st === "todo"); if (k >= 0) { L.k = k; [L.i, L.j] = L.q[k]; if (L.phase !== "rest") L.phase = "ready"; } }
   if (a === "lend") { L.back = L.phase; L.phase = "end"; L.endAt = Date.now(); }
-  if (a === "lresume") { L.phase = L.back && L.back !== "end" ? L.back : "ready"; if (L.phase === "work") L.t0 = Date.now(); L.endAt = null; }
+  if (a === "lresume") { L.phase = L.back && L.back !== "end" ? L.back : "ready"; if (L.phase === "work") L.t0 = Date.now(); L.endAt = null; if (S.cfg.wake) wake(); }
   if (a === "lsave") { const en = liveEntry(L); S.live = null; unwake(); return storeSession(en); }
   if (a === "ldiscard") { snap(); S.live = null; S.view = "schede"; unwake(); toast("Allenamento scartato", true); }
   commit(); window.scrollTo({ top: 0 });
@@ -634,82 +727,67 @@ function liveTick() {
     }
   }
 }
-function countdown(rem) { const L = S.live, k = Math.ceil(rem); if (k <= 3 && k < (L.cd ?? 4)) { L.cd = k; beep(660, 0.08); } }
+function countdown(rem) { const L = S.live, k = Math.ceil(rem); if (k <= 3 && k < (L.cd ?? 4)) { L.cd = k; if (S.cfg.cd) beep(660, 0.08); } }
 setInterval(liveTick, 250);
 // suoni, vibrazione, schermo acceso
 let AC = null, WL = null;
-function ensureAudio() { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch (e) {} }
+function ensureAudio() {
+  try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {}
+  try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume(); } catch (e) {}
+}
 function beep(f, d, when = 0) {
-  if (!AC || S.mute) return;
+  if (!AC || S.mute || !(S.cfg.vol > 0)) return;
+  const peak = Math.max(0.0002, 0.5 * S.cfg.vol * S.cfg.vol);
   try { const o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + when; o.type = "square"; o.frequency.value = f;
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.25, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
     o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + 0.03); } catch (e) {}
 }
 function alarm() {
   beep(880, 0.18); beep(880, 0.18, 0.25); beep(1320, 0.4, 0.5);
-  try { if (!S.mute && navigator.vibrate) navigator.vibrate([300, 120, 300, 120, 500]); } catch (e) {}
+  try { if (!S.mute && S.cfg.vib && navigator.vibrate) navigator.vibrate([300, 120, 300, 120, 500]); } catch (e) {}
   document.body.classList.remove("flash"); void document.body.offsetWidth; document.body.classList.add("flash");
 }
 async function wake() { try { if (navigator.wakeLock && !WL) { WL = await navigator.wakeLock.request("screen"); WL.addEventListener("release", () => WL = null); } } catch (e) {} }
 function unwake() { try { WL && WL.release(); } catch (e) {} WL = null; }
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && S.view === "live") { wake(); liveTick(); } });
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && S.view === "live") { if (S.cfg.wake) wake(); liveTick(); } });
 
 
 
 
-// ---- guida ----
-function renderGuide() {
-  const G = [
-    ["Installa l'app sul telefono", `<ol>
-      <li>Apri il link dell'app <b>con la connessione attiva</b>, una volta sola.</li>
-      <li><b>iPhone</b>: in Safari tocca il pulsante <b>Condividi</b> (il quadrato con la freccia) e poi <b>Aggiungi alla schermata Home</b>.</li>
-      <li><b>Android</b>: tocca <b>Installa app</b> in alto, oppure il menu ⋮ di Chrome e poi <b>Installa app</b> o <b>Aggiungi a schermata Home</b>.</li>
-      <li>Da quel momento la apri con l'icona <b>ANT</b>, anche <b>senza connessione</b>: in palestra funziona tutto.</li></ol>
-      <p>Le tue schede e i tuoi allenamenti restano salvati sul tuo telefono: nessun altro li vede, nemmeno chi gestisce l'app. Non usare la navigazione in incognito, perché non salverebbe niente. Quando esce una versione nuova, aprendo l'app con la connessione compare <b>Nuova versione disponibile</b>: tocca <b>Aggiorna</b> e i tuoi dati restano.</p>`],
-    ["Crea la tua scheda", `<ol>
-      <li>In alto premi <b>Schede</b>, poi <b>+ Nuova scheda</b> (sotto l'elenco delle tue schede).</li>
-      <li>Scrivi il nome della scheda, per esempio <i>Gambe</i> o <i>Giorno A</i>.</li>
-      <li>Premi <b>+ Aggiungi esercizio</b>: trovi tutti gli oltre 1.500 esercizi riconosciuti da Garmin. Cerca in italiano o in inglese, oppure filtra per muscolo e per attrezzo. Se non lo trovi, scrivi il nome e scegli <b>Usa come esercizio personalizzato</b>, poi indica quali muscoli lavora.</li>
-      <li>Per ogni esercizio scegli <b>Ripetizioni</b> o <b>Tempo</b>, il numero di <b>serie</b>, i <b>kg</b> e il <b>recupero</b>.</li>
-      <li>Per serie con carichi diversi (piramidale) spunta <b>Serie diverse</b>.</li></ol>
-      <p>Si salva tutto da solo: non c'è un tasto Salva.</p>`],
-    ["Mettila sul Garmin", `<ol>
-      <li>Dal <b>computer</b>, apri la scheda e premi <b>Esporta per Garmin</b>, sotto il nome della scheda: si scarica un file che finisce in <b>.fit</b>.</li>
-      <li>Collega l'orologio al computer con il suo cavo. Se il computer non ha la porta USB-C serve un adattatore da USB-C a USB normale, che supporti i dati.</li>
-      <li>Apri l'orologio come una chiavetta e vai nella cartella <b>GARMIN › NewFiles</b>.</li>
-      <li>Copia lì dentro il file .fit.</li>
-      <li>Scollega l'orologio e aspetta qualche secondo. Troverai la scheda nell'attività <b>Forza</b>, tra gli <b>Allenamenti</b>.</li></ol>
-      <p>Su Mac l'orologio non compare nel Finder: installa il programma gratuito <b>OpenMTP</b> e usa quello per copiare il file.</p>`],
-    ["Allenati con l'app", `<ol>
-      <li>Apri la scheda e premi il pulsante rosso <b>Allenati ora</b>, sempre in basso. Funziona anche senza orologio: basta il telefono o il computer.</li>
-      <li>Controlla ripetizioni e kg con <b>−</b> e <b>+</b>. Il carico è già suggerito in base all'ultima volta: se avevi completato tutte le ripetizioni, l'app propone di salire.</li>
-      <li>Premi <b>Inizia serie</b> e, quando hai finito, <b>Serie fatta</b>. Negli esercizi a tempo parte il conto alla rovescia.</li>
-      <li>Parte il <b>recupero</b>. Quando finisce senti un suono, il telefono vibra (se lo supporta) e il bordo dello schermo lampeggia: il timer continua contando la <b>pausa extra</b>, finché non premi Inizia serie.</li>
-      <li>Durante il recupero puoi correggere la serie appena fatta. Puoi anche <b>saltare</b> una serie o un esercizio, oppure toccare un esercizio della lista per passare a quello (utile se una macchina è occupata).</li>
-      <li>Alla fine, o con <b>Termina</b>, vedi il riepilogo con i muscoli allenati: premi <b>Salva nel diario</b>.</li></ol>
-      <p>Tieni il volume del telefono acceso. Se ti serve silenzio, l'icona dell'altoparlante in alto spegne i suoni. Se hai fatto l'allenamento senza app, usa <b>Registra a mano</b>, accanto ad Allenati ora, e inserisci le serie a fine sessione.</p>`],
-    ["Guarda i progressi", `<ul>
-      <li>In alto premi <b>Diario</b>.</li>
-      <li><b>Muscoli allenati</b> colora le zone del corpo che hai lavorato: nell'ultimo allenamento, negli ultimi 7 o 30 giorni. Così vedi subito se trascuri qualcosa.</li>
-      <li>In <b>Progressi per esercizio</b> scegli un esercizio: il grafico mostra come cresce il carico nel tempo e il tuo record.</li>
-      <li><b>Volume</b> mostra quanto hai sollevato in totale in ogni allenamento. <b>Costanza</b> mostra i giorni in cui ti sei allenato.</li>
-      <li>In <b>Storico</b> trovi tutti gli allenamenti: tocca una data per vedere le serie.</li></ul>`],
-    ["Non perdere i tuoi dati", `<ul>
-      <li>Ogni tanto premi <b>Backup</b> in alto: scarica un file con tutte le tue schede e il diario. Conservalo, per esempio su Google Drive.</li>
-      <li>Se cambi computer o browser, o se cancelli i dati di navigazione, premi <b>Importa</b> e scegli quel file: ritrovi tutto.</li></ul>`],
-  ];
-  const F = [
-    ["Ho cancellato qualcosa per sbaglio", "Subito dopo compare in basso il tasto <b>Annulla</b>: premilo entro qualche secondo."],
-    ["Il computer non vede l'orologio", "Prova un'altra porta USB e controlla che l'adattatore sia per i dati e non solo per la ricarica. Su Mac usa OpenMTP."],
-    ["La scheda non compare sull'orologio", "Controlla di aver copiato il file in <b>NewFiles</b> e non in un'altra cartella, poi scollega e riavvia l'orologio."],
-    ["Non sento il suono a fine recupero", "Alza il volume e controlla che l'icona dell'altoparlante in alto non sia barrata. Su iPhone la modalità silenziosa può bloccare i suoni: tieni d'occhio il timer, che diventa rosso."],
-    ["Non trovo più le mie schede", "Ogni browser e ogni dispositivo ha i suoi dati: apri l'app da quello di sempre (l'icona ANT installata). Se hai cambiato telefono o hai cancellato i dati di navigazione, usa <b>Importa</b> con il tuo ultimo backup."],
-    ["L'app non si apre senza connessione", "Aprila almeno una volta con la connessione dopo averla installata, così il telefono ne salva una copia. Su iPhone usa l'icona sulla schermata Home, non Safari."],
-  ];
-  $("ed").innerHTML = `<h1 class="h">Come funziona</h1><p class="sub">Sei passi per costruire le tue schede, allenarti con l'app o con l'orologio e seguire i tuoi progressi.</p>
-  ${G.map((g, i) => `<section class="gd"><div class="gn">${i + 1}</div><div><h2>${g[0]}</h2>${g[1]}</div></section>`).join("")}
-  <div class="card" style="margin-top:8px"><h2>Problemi frequenti</h2>${F.map(f => `<details class="sess"><summary><b style="min-width:0">${f[0]}</b></summary><p class="sub" style="margin:0 0 14px">${f[1]}</p></details>`).join("")}</div>
-  <button class="addex" data-a="goschede">Vai alle schede</button><p class="ver">Versione 1.0.1</p>`;
+// ---- impostazioni ----
+const sw = (k, label, sub) => `<div class="srow"><div><b>${label}</b>${sub ? `<span>${sub}</span>` : ""}</div><button class="switch${S.cfg[k] ? " on" : ""}" role="switch" aria-checked="${!!S.cfg[k]}" aria-label="${label}" data-a="tg" data-k="${k}"><i></i></button></div>`;
+const segC = (k, opts) => `<div class="seg">${opts.map(([v, t]) => `<button class="${S.cfg[k] === v ? "on" : ""}" data-a="cf" data-k="${k}" data-v="${v}">${t}</button>`).join("")}</div>`;
+const PDF = "guida-ANT.pdf";
+let wipeArm = false;
+function renderSettings() {
+  const nl = S.log.length;
+  $("ed").innerHTML = `<h1 class="h">Impostazioni</h1><p class="sub">Valgono solo per questo dispositivo.</p>
+  <section class="set"><h2>Guida</h2><p class="sub">Tutto sull'app, con le schermate: da leggere sul telefono o stampare.</p>
+    <div class="bar"><a class="go" href="${PDF}" download="Guida ANT Schede.pdf" target="_blank" rel="noopener">${svg("dl")}Scarica la guida (PDF)</a><button class="ghost" data-a="welcome">Rivedi il benvenuto</button></div></section>
+  <section class="set"><h2>Aspetto</h2>
+    <div class="srow"><div><b>Tema</b><span>Automatico segue il tema chiaro o scuro del telefono</span></div>${segC("theme", [["dark", "Scuro"], ["light", "Chiaro"], ["auto", "Automatico"]])}</div></section>
+  <section class="set"><h2>Allenamento</h2>
+    <div class="srow"><div><b>Volume degli allarmi</b><span>In proporzione al volume del telefono</span></div><div class="vol"><input type="range" id="vol" min="0" max="100" step="5" value="${Math.round(S.cfg.vol * 100)}" aria-label="Volume degli allarmi"><output id="volo">${Math.round(S.cfg.vol * 100)}%</output><button class="ghost" data-a="tsnd">Prova</button></div></div>
+    ${sw("vib", "Vibrazione", "A fine recupero, se il telefono la supporta (non su iPhone)")}
+    ${sw("cd", "Bip 3-2-1", "Tre bip brevi negli ultimi secondi del recupero")}
+    ${sw("wake", "Schermo sempre acceso", "Durante l'allenamento lo schermo non si spegne")}
+    <div class="srow"><div><b>Recupero tra le serie</b><span>Predefinito per gli esercizi che aggiungi</span></div><div class="nin"><input class="n" type="number" inputmode="numeric" min="0" id="cfr" value="${S.cfg.rest}"><span>sec</span></div></div>
+    <div class="srow"><div><b>Pausa tra un esercizio e l'altro</b><span>Predefinita per gli esercizi che aggiungi</span></div><div class="nin"><input class="n" type="number" inputmode="numeric" min="0" id="cfa" value="${S.cfg.restAfter}"><span>sec</span></div></div>
+    <div class="srow"><div><b>Aumento proposto: parte alta</b><span>Petto, schiena, spalle, braccia</span></div>${segC("incUp", [[1.25, "1,25 kg"], [2.5, "2,5 kg"], [5, "5 kg"]])}</div>
+    <div class="srow"><div><b>Aumento proposto: gambe e glutei</b></div>${segC("incLow", [[2.5, "2,5 kg"], [5, "5 kg"], [10, "10 kg"]])}</div></section>
+  <section class="set"><h2>Dati</h2><p class="sub">Schede e diario restano salvati solo su questo dispositivo: ${S.w.length} ${S.w.length === 1 ? "scheda" : "schede"} e ${nl} ${nl === 1 ? "allenamento" : "allenamenti"}. Fai un backup ogni tanto e conservalo, per esempio su Google Drive.</p>
+    <div class="bar"><button class="ghost" data-a="bk">${svg("dl")}Backup</button><button class="ghost" data-a="im">Importa backup</button><button class="ghost danger${wipeArm ? " armed" : ""}" data-a="wipe">${wipeArm ? "Tocca di nuovo per cancellare tutto" : "Cancella tutti i dati"}</button></div></section>
+  <p class="ver">ANT Schede · versione 1.1.0</p>`;
+}
+function renderWelcome() {
+  $("ed").innerHTML = `<div class="wel"><h1 class="h">Benvenuto nell'app <em>ANT</em></h1><p class="sub">Schede, timer e diario della nostra home gym. Funziona anche senza connessione.</p>
+  <ol class="wl">
+    <li><b>Crea la tua scheda</b><span>In <i>Schede</i> aggiungi gli esercizi (oltre 1.500, gli stessi del Garmin) con serie, carichi e pause.</span></li>
+    <li><b>Allenati</b><span>Premi <i>Allenati ora</i>: timer di serie e recupero, carichi proposti, esercizi da saltare. Oppure esporta la scheda sull'orologio Garmin.</span></li>
+    <li><b>Guarda i progressi</b><span>Nel <i>Diario</i> trovi record, grafici e la mappa dei muscoli allenati.</span></li>
+  </ol>
+  <div class="card"><h2>Installala sul telefono</h2><p class="sub" style="margin:0"><b style="color:var(--ink)">iPhone</b>: in Safari tocca Condividi e poi Aggiungi alla schermata Home. <b style="color:var(--ink)">Android</b>: tocca Installa app in alto, oppure menu ⋮ di Chrome e poi Installa app.</p></div>
+  <div class="bar"><button class="go" data-a="wgo">Inizia</button><a class="ghost" href="${PDF}" download="Guida ANT Schede.pdf" target="_blank" rel="noopener">${svg("dl")}Guida completa (PDF)</a></div></div>`;
 }
 
 // ---- diario ----
@@ -745,10 +823,10 @@ function renderDiary() {
     <div class="grid2"><div class="fig" id="pf"><svg></svg><div class="tip"></div></div><div class="pr" id="pr"></div></div></div>
   <div class="grid2">
     <div class="card"><h2>Volume per allenamento</h2><p class="sub">Somma di ripetizioni × kg, ultimi ${Math.min(L.length, 20)} allenamenti</p><div class="fig sm" id="vf"><svg></svg><div class="tip"></div></div></div>
-    <div class="card"><h2>Costanza</h2><p class="sub">Ultime 20 settimane</p><div class="heat" id="hm"></div><div class="hleg">meno <i style="background:var(--panel2)"></i><i style="background:#b30a0c"></i><i style="background:var(--red)"></i> più</div></div>
+    <div class="card"><h2>Costanza</h2><p class="sub">Ultime 20 settimane</p><div class="heat" id="hm"></div><div class="hleg">meno <i style="background:var(--panel2)"></i><i style="background:var(--hm1)"></i><i style="background:var(--red)"></i> più</div></div>
   </div>
-  <div class="card"><h2>Storico</h2>${[...L].reverse().map(s => `<details class="sess"><summary><b>${fd(s.date)}</b><span>${esc(s.wName)} · ${s.ex.length} esercizi · ${sSets(s)} serie · ${fmtN(sVol(s))} kg${s.dur ? " · " + fmtT(s.dur) : ""}</span><button class="ic del" data-a="sdel" data-s="${s.id}" title="Elimina allenamento">${svg("del")}</button></summary>
-    <ul>${s.ex.map(x => `<li><b>${esc(x.n)}</b>: ${x.sets.map(z => x.mode === "time" ? z.v + " s" : z.v + (z.kg ? "×" + fmtN(z.kg) + " kg" : " rip")).join(", ")}</li>`).join("")}</ul>${bodyMap([s], true)}${s.note ? `<p class="sub" style="margin:0 0 12px">${esc(s.note)}</p>` : ""}</details>`).join("")}</div>`;
+  <div class="card"><h2>Storico</h2>${[...L].reverse().map(s => `<details class="sess"><summary><b>${fd(s.date)}</b><span>${esc(s.wName)} · ${s.ex.length} esercizi · ${sSets(s)} serie · ${fmtN(sVol(s))} kg${s.dur ? " · " + fmtT(s.dur) : ""}${s.rpe ? " · sforzo " + s.rpe + "/10" : ""}</span><button class="ic del" data-a="sdel" data-s="${s.id}" title="Elimina allenamento">${svg("del")}</button></summary>
+    <ul>${s.ex.map(x => `<li><b>${esc(x.n)}</b>: ${x.sets.map(z => (x.mode === "time" ? z.v + " s" : z.v + (z.kg ? "×" + fmtN(z.kg) + " kg" : " rip")) + (z.f ? ` <i class="fl f${z.f}">${["", "facile", "giusta", "dura"][z.f]}</i>` : "")).join(", ")}</li>`).join("")}</ul>${bodyMap([s], true)}${s.note ? `<p class="sub" style="margin:0 0 12px">${esc(s.note)}</p>` : ""}</details>`).join("")}</div>`;
   drawProgress(L); drawVolume(L); drawHeat(L);
 }
 function drawProgress(L) {
@@ -785,13 +863,13 @@ function lineChart(el, pts, u, title) {
     const path = pts.map((p, i) => (i ? "L" : "M") + X(p).toFixed(1) + "," + Y(p.y).toFixed(1)).join("");
     const xl = pts.length > 1 ? [pts[0], pts[pts.length - 1]] : [pts[0]];
     const maxY = Math.max(...ys), prI = pts.findIndex(p => p.y === maxY);
-    s.innerHTML = `<title>${esc(title)}</title>${ticks.filter(v => v <= hi).map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#2c2c30"/><text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end" fill="#8c8c8c" font-size="12">${fmtN(v)}</text>`).join("")}
-      <text x="${m.l}" y="${m.t - 2}" fill="#8c8c8c" font-size="12">${u}</text>
-      ${xl.map((p, i) => `<text x="${X(p)}" y="${H - 6}" text-anchor="${pts.length === 1 ? "middle" : i ? "end" : "start"}" fill="#8c8c8c" font-size="12">${fdS(p.d)}</text>`).join("")}
+    s.innerHTML = `<title>${esc(title)}</title>${ticks.filter(v => v <= hi).map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--c-grid)"/><text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end" style="fill:var(--c-lab)" font-size="12">${fmtN(v)}</text>`).join("")}
+      <text x="${m.l}" y="${m.t - 2}" style="fill:var(--c-lab)" font-size="12">${u}</text>
+      ${xl.map((p, i) => `<text x="${X(p)}" y="${H - 6}" text-anchor="${pts.length === 1 ? "middle" : i ? "end" : "start"}" style="fill:var(--c-lab)" font-size="12">${fdS(p.d)}</text>`).join("")}
       <path d="${path}" fill="none" stroke="#e30d0f" stroke-width="2" stroke-linejoin="round"/>
-      ${pts.map((p, i) => `<circle cx="${X(p)}" cy="${Y(p.y)}" r="${i === prI ? 6 : 4}" fill="${i === prI ? "#e30d0f" : "#18181a"}" stroke="#e30d0f" stroke-width="2"/>`).join("")}
-      <text x="${Math.min(Math.max(X(pts[prI]), m.l + 50), W - m.r - 50)}" y="${Y(maxY) - 12}" text-anchor="middle" fill="#f3f3f3" font-size="12" font-weight="600">Record ${fmtN(maxY)} ${u}</text>
-      <line class="cx" y1="${m.t}" y2="${H - m.b}" stroke="#8c8c8c" stroke-dasharray="3 3" style="display:none"/>
+      ${pts.map((p, i) => `<circle cx="${X(p)}" cy="${Y(p.y)}" r="${i === prI ? 6 : 4}" style="fill:${i === prI ? "#e30d0f" : "var(--panel)"}" stroke="#e30d0f" stroke-width="2"/>`).join("")}
+      <text x="${Math.min(Math.max(X(pts[prI]), m.l + 50), W - m.r - 50)}" y="${Y(maxY) - 12}" text-anchor="middle" style="fill:var(--ink)" font-size="12" font-weight="600">Record ${fmtN(maxY)} ${u}</text>
+      <line class="cx" y1="${m.t}" y2="${H - m.b}" style="stroke:var(--c-lab);display:none" stroke-dasharray="3 3"/>
       <rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>`;
     s.onpointermove = e => {
       const r = s.getBoundingClientRect(), mx = e.clientX - r.left;
@@ -809,10 +887,10 @@ function drawVolume(L) {
     const W = el.clientWidth, H = el.clientHeight, m = { l: 52, r: 8, t: 10, b: 28 };
     const hi0 = Math.max(1, ...D.map(sVol)), ticks = axisTicks(0, hi0), hi = ticks[ticks.length - 1];
     const bw = (W - m.l - m.r) / D.length, Y = v => m.t + (1 - v / hi) * (H - m.t - m.b);
-    s.innerHTML = `${ticks.map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#2c2c30"/><text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end" fill="#8c8c8c" font-size="12">${v >= 1000 ? fmtN(v / 1000) + "k" : fmtN(v)}</text>`).join("")}
+    s.innerHTML = `${ticks.map(v => `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--c-grid)"/><text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end" style="fill:var(--c-lab)" font-size="12">${v >= 1000 ? fmtN(v / 1000) + "k" : fmtN(v)}</text>`).join("")}
       ${D.map((d, i) => { const v = sVol(d), w = Math.max(2, Math.min(48, bw * 0.7)), x = m.l + i * bw + (bw - w) / 2, y = Y(v), h = H - m.b - y;
-        return `<path d="M${x},${H - m.b}V${y + Math.min(4, h)}q0,-4 4,-4h${w - 8}q4,0 4,4V${H - m.b}Z" fill="${i === D.length - 1 ? "#e30d0f" : "#5a5a60"}" data-i="${i}"/><rect x="${m.l + i * bw}" y="${m.t}" width="${bw}" height="${H - m.t - m.b}" fill="transparent" data-i="${i}"/>`; }).join("")}
-      <text x="${m.l}" y="${H - 6}" fill="#8c8c8c" font-size="12">${fdS(D[0].date)}</text><text x="${W - m.r}" y="${H - 6}" text-anchor="end" fill="#8c8c8c" font-size="12">${fdS(D[D.length - 1].date)}</text>`;
+        return `<path d="M${x},${H - m.b}V${y + Math.min(4, h)}q0,-4 4,-4h${w - 8}q4,0 4,4V${H - m.b}Z" style="fill:${i === D.length - 1 ? "#e30d0f" : "var(--c-bar)"}" data-i="${i}"/><rect x="${m.l + i * bw}" y="${m.t}" width="${bw}" height="${H - m.t - m.b}" fill="transparent" data-i="${i}"/>`; }).join("")}
+      <text x="${m.l}" y="${H - 6}" style="fill:var(--c-lab)" font-size="12">${fdS(D[0].date)}</text><text x="${W - m.r}" y="${H - 6}" text-anchor="end" style="fill:var(--c-lab)" font-size="12">${fdS(D[D.length - 1].date)}</text>`;
     s.onpointermove = e => { const i = e.target.dataset?.i; if (i === undefined) return; const d = D[+i];
       tip.innerHTML = `<b>${fmtN(sVol(d))} kg</b>${esc(d.wName)} · ${fd(d.date)}`; tip.style.display = "block";
       tip.style.left = Math.min(Math.max(m.l + (+i + 0.5) * bw, 90), W - 90) + "px"; tip.style.top = Y(sVol(d)) + "px"; };
@@ -843,6 +921,11 @@ $("tundo").onclick = () => { if (undoSnap) { S = JSON.parse(undoSnap); undoSnap 
 // ---- eventi editor ----
 $("ed").addEventListener("input", e => {
   const t = e.target, w = W();
+  if (S.view === "imp") {
+    if (t.id === "vol") { S.cfg.vol = +t.value / 100; $("volo").textContent = t.value + "%"; save(); }
+    if (t.id === "cfr" || t.id === "cfa") { const v = Math.max(0, Math.round(+t.value) || 0); S.cfg[t.id === "cfr" ? "rest" : "restAfter"] = v; save(); }
+    return;
+  }
   if (S.view === "live") { if (t.id === "lnote" && S.live) { S.live.note = t.value; save(); } return; }
   if (S.view === "log") {
     const D = S.draft; if (!D) return;
@@ -855,7 +938,7 @@ $("ed").addEventListener("input", e => {
   if (t.id === "ds") { w.desc = t.value; return save(); }
   const f = t.dataset.f; if (!f) return;
   const x = w.ex[+t.dataset.i], val = parseFloat(t.value.replace(",", "."));
-  if (f === "rest") { x.rest = Math.max(0, Math.round(val) || 0); }
+  if (f === "rest" || f === "restAfter") { x[f] = Math.max(0, Math.round(val) || 0); }
   else {
     const v = f === "v" ? Math.max(1, Math.round(val) || 1) : Math.max(0, val || 0);
     (x.same ? x.sets : [x.sets[+t.dataset.j]]).forEach(s => s[f] = v);
@@ -871,11 +954,26 @@ $("ed").addEventListener("click", e => {
     if (a === "lsm" && x.sets.length > 1) x.sets.pop();
     if (a === "lsp" && x.sets.length < 20) x.sets.push({ ...x.sets[x.sets.length - 1], done: true });
     if (a === "lsave") return saveLog();
+    if (a === "drpe") { D.rpe = +b.dataset.v; save(); return renderLog(); }
     if (a === "lcancel") { S.draft = null; S.view = "schede"; }
     return commit();
   }
   if (S.view === "live") return liveAction(a, b);
-  if (S.view === "guida") { if (a === "goschede") { S.view = "schede"; commit(); window.scrollTo({ top: 0 }); } return; }
+  if (S.view === "welcome") { if (a === "wgo") { S.view = "schede"; commit(); window.scrollTo({ top: 0 }); } return; }
+  if (S.view === "imp") {
+    if (a !== "wipe") wipeArm = false;
+    if (a === "tg") { S.cfg[b.dataset.k] = !S.cfg[b.dataset.k]; if (b.dataset.k === "wake" && !S.cfg.wake) unwake(); }
+    if (a === "cf") { const k = b.dataset.k; S.cfg[k] = k === "theme" ? b.dataset.v : +b.dataset.v; if (k === "theme") applyTheme(); }
+    if (a === "tsnd") { ensureAudio(); const m = S.mute; S.mute = false; alarm(); S.mute = m; return; }
+    if (a === "welcome") S.view = "welcome";
+    if (a === "bk") return backup();
+    if (a === "im") return $("imf").click();
+    if (a === "wipe") {
+      if (!wipeArm) { wipeArm = true; return renderSettings(); }
+      wipeArm = false; snap(); S.w = sample(); S.cur = S.w[0].id; S.log = []; S.live = null; S.draft = null; toast("Tutti i dati cancellati", true);
+    }
+    return commit();
+  }
   if (S.view === "diario") {
     if (a === "pex") { S.pex = b.dataset.n; save(); document.querySelectorAll("#pex button").forEach(z => z.classList.toggle("on", z === b)); ros.forEach(r => r.disconnect()); ros = []; drawProgress(sorted()); drawVolume(sorted()); return; }
     if (a === "sdel") { e.preventDefault(); snap(); const ss = S.log.find(z => z.id === b.dataset.s); S.log = S.log.filter(z => z !== ss); toast(`Allenamento del ${fd(ss.date)} eliminato`, true); }
@@ -889,12 +987,14 @@ $("ed").addEventListener("click", e => {
   const w = W(), i = +b.dataset.i, x = w.ex[i];
   if (a === "add") return openPick(-1);
   if (a === "pick") return openPick(i);
-  if (a === "up" || a === "down") { const j = a === "up" ? i - 1 : i + 1; [w.ex[i], w.ex[j]] = [w.ex[j], w.ex[i]]; }
+  if (a === "up" || a === "down") { const j = a === "up" ? i - 1 : i + 1; [w.ex[i], w.ex[j]] = [w.ex[j], w.ex[i]]; [i, j, Math.min(i, j) - 1].forEach(k => { if (w.ex[k]) w.ex[k].link = false; }); }
   if (a === "dup") w.ex.splice(i + 1, 0, { ...JSON.parse(JSON.stringify(x)), id: uid() });
-  if (a === "del") { snap(); w.ex.splice(i, 1); toast(`«${x.n}» eliminato`, true); }
+  if (a === "del") { snap(); if (!x.link && w.ex[i - 1]) w.ex[i - 1].link = false; w.ex.splice(i, 1); toast(`«${x.n}» eliminato`, true); }
+  if (a === "link") { x.link = !x.link; if (x.link) { const g = groupOf(w.ex, i); syncGroup(w.ex, g[0]); } }
+  if (a === "restAfter") x.restAfter = +b.dataset.v;
   if (a === "mode" && x.mode !== b.dataset.v) { x.mode = b.dataset.v; x.sets.forEach(s => s.v = x.mode === "reps" ? 10 : 30); }
-  if (a === "sm" && x.sets.length > 1) x.sets.pop();
-  if (a === "sp" && x.sets.length < 20) x.sets.push({ ...x.sets[x.sets.length - 1] });
+  if (a === "sm" && x.sets.length > 1) { x.sets.pop(); syncGroup(w.ex, i); }
+  if (a === "sp" && x.sets.length < 20) { x.sets.push({ ...x.sets[x.sets.length - 1] }); syncGroup(w.ex, i); }
   if (a === "rest") x.rest = +b.dataset.v;
   if (a === "pm") x.pm = (x.pm || 0) ^ B(+b.dataset.m);
   if (a === "same") { x.same = !b.checked; if (x.same) x.sets.forEach(s => Object.assign(s, x.sets[0])); }
@@ -908,7 +1008,7 @@ $("ed").addEventListener("click", e => {
 });
 $("nav").addEventListener("click", e => { const b = e.target.closest("[data-v]"); if (!b) return; if ((S.view === "log" || S.view === "live") && b.dataset.v === "schede") return; S.view = b.dataset.v; commit(); window.scrollTo({ top: 0 }); });
 $("wks").addEventListener("click", e => { const b = e.target.closest("[data-w]"); if (b) { S.cur = b.dataset.w; commit(); } });
-$("gg").onclick = () => { S.view = "guida"; commit(); window.scrollTo({ top: 0 }); };
+$("gg").onclick = () => { S.view = "imp"; commit(); window.scrollTo({ top: 0 }); };
 $("nw").onclick = () => { S.view = "schede"; const w = { id: uid(), name: "Nuova scheda", desc: "", ex: [] }; S.w.push(w); S.cur = w.id; commit(); $("nm").select(); };
 
 // ---- scelta esercizio ----
@@ -946,7 +1046,7 @@ function choose(id, custom) {
   const w = W(), c = custom ? null : BYID.get(id), n = custom ? id : c.n;
   const timed = c && (c.cat.k === "plank" || c.cat.k === "warmUp" || /hold|plank|wall sit|static/i.test(c.en));
   if (pickIdx < 0) {
-    const x = { id: uid(), n, c: c ? c.c : null, e: c ? c.e : null, mode: timed ? "time" : "reps", same: true, sets: Array.from({ length: 3 }, () => ({ v: timed ? 30 : 10, kg: 0 })), rest: 90 };
+    const x = { id: uid(), n, c: c ? c.c : null, e: c ? c.e : null, mode: timed ? "time" : "reps", same: true, sets: Array.from({ length: 3 }, () => ({ v: timed ? 30 : 10, kg: 0 })), rest: S.cfg.rest, restAfter: S.cfg.restAfter };
     w.ex.push(x);
   } else { Object.assign(w.ex[pickIdx], { n, c: c ? c.c : null, e: c ? c.e : null }); }
   closePick(); commit();
@@ -971,19 +1071,27 @@ const fileName = s => (s || "Scheda").normalize("NFD").replace(/[̀-ͯ]/g, "").r
 // Costruisce il file FIT "workout" (forza) per l'orologio
 function buildFit(w) {
   const { Encoder, Profile } = window.FitSDK, M = Profile.MesgNum;
-  const UNKNOWN = 65534, customIdx = new Map(), titles = new Map(), steps = [];
+  const UNKNOWN = 65534, customIdx = new Map(), titles = new Map(), steps = [], ex = w.ex;
   const push = s => steps.push({ messageIndex: steps.length, targetType: "open", ...s });
-  for (const x of w.ex) {
-    let cat = x.c, en = x.e;
-    if (cat === null) { if (!customIdx.has(x.n)) customIdx.set(x.n, customIdx.size); cat = UNKNOWN; en = customIdx.get(x.n); }
-    titles.set(cat + ":" + en, { exerciseCategory: cat, exerciseName: en, wktStepName: x.n.slice(0, 50) });
-    const work = s => ({ wktStepName: x.n.slice(0, 50), durationType: x.mode === "reps" ? "reps" : "time", durationValue: x.mode === "reps" ? s.v : s.v * 1000, intensity: "active", exerciseCategory: cat, exerciseName: en, ...(s.kg > 0 ? { exerciseWeight: s.kg, weightDisplayUnit: "kilogram" } : {}) });
-    const rest = () => ({ wktStepName: "Recupero", durationType: x.rest > 0 ? "time" : "open", ...(x.rest > 0 ? { durationValue: x.rest * 1000 } : {}), intensity: "rest" });
-    if (x.same && x.sets.length > 1) {
-      const first = steps.length; push(work(x.sets[0])); push(rest());
-      push({ durationType: "repeatUntilStepsCmplt", durationValue: first, targetValue: x.sets.length });
-    } else for (const s of x.sets) { push(work(s)); push(rest()); }
-  }
+  const codes = x => { let cat = x.c, en = x.e; if (cat === null || cat === undefined) { if (!customIdx.has(x.n)) customIdx.set(x.n, customIdx.size); cat = UNKNOWN; en = customIdx.get(x.n); } titles.set(cat + ":" + en, { exerciseCategory: cat, exerciseName: en, wktStepName: x.n.slice(0, 50) }); return [cat, en]; };
+  const work = (x, s) => { const [cat, en] = codes(x); push({ wktStepName: x.n.slice(0, 50), durationType: x.mode === "reps" ? "reps" : "time", durationValue: x.mode === "reps" ? s.v : s.v * 1000, intensity: "active", exerciseCategory: cat, exerciseName: en, ...(s.kg > 0 ? { exerciseWeight: s.kg, weightDisplayUnit: "kilogram" } : {}) }); };
+  const rest = sec => { if (sec > 0) push({ wktStepName: "Recupero", durationType: "time", durationValue: sec * 1000, intensity: "rest" }); };
+  const repeat = (first, times) => push({ durationType: "repeatUntilStepsCmplt", durationValue: first, targetValue: times });
+  const groups = groupsOf(ex);
+  groups.forEach((g, gi) => {
+    const lastG = gi === groups.length - 1;
+    if (g.length === 1) {
+      const x = ex[g[0]], n = x.sets.length, ra = lastG ? 0 : (x.restAfter ?? x.rest);
+      if (x.same && n > 2) { const first = steps.length; work(x, x.sets[0]); rest(x.rest); repeat(first, n - 1); work(x, x.sets[n - 1]); rest(ra); }
+      else x.sets.forEach((s, j) => { work(x, s); rest(j < n - 1 ? x.rest : ra); });
+      return;
+    }
+    const R = Math.max(...g.map(i => ex[i].sets.length)), L = ex[g[g.length - 1]], ra = lastG ? 0 : (L.restAfter ?? L.rest);
+    const same = g.every(i => ex[i].same && ex[i].sets.length === R);
+    const round = (r, endRest) => g.forEach((i, m) => { const x = ex[i]; if (r >= x.sets.length) return; work(x, x.sets[r]); rest(m === g.length - 1 ? endRest : (x.restAfter || 0)); });
+    if (same && R > 2) { const first = steps.length; round(0, L.rest); repeat(first, R - 1); round(R - 1, ra); }
+    else for (let r = 0; r < R; r++) round(r, r < R - 1 ? L.rest : ra);
+  });
   const enc = new Encoder();
   enc.onMesg(M.FILE_ID, { type: "workout", manufacturer: "development", product: 0, serialNumber: Math.floor(Math.random() * 1e9), timeCreated: new Date() });
   enc.onMesg(M.WORKOUT, { wktName: (w.name || "Scheda").slice(0, 40), sport: "training", subSport: "strengthTraining", numValidSteps: steps.length, ...(w.desc ? { wktDescription: w.desc.slice(0, 120) } : {}) });
@@ -999,21 +1107,20 @@ function exportFit() {
 }
 $("lv").onclick = () => { if (S.live) { S.view = "live"; commit(); window.scrollTo({ top: 0 }); } else startLive(); };
 $("lg").onclick = () => startLog();
-$("bk").onclick = () => { download(`ANT_backup_${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: "ant-schede", v: 2, w: S.w, log: S.log }, null, 1), "application/json"); toast("Backup scaricato"); };
-$("im").onclick = () => $("imf").click();
+function backup() { download(`ANT_backup_${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({ app: "ant-schede", v: 3, w: S.w, log: S.log, cfg: S.cfg }, null, 1), "application/json"); toast("Backup scaricato"); }
 $("imf").onchange = async e => {
   const f = e.target.files[0]; e.target.value = ""; if (!f) return;
   try {
     const d = JSON.parse(await f.text()); if (!Array.isArray(d.w)) throw new Error("formato non valido");
     snap(); const ids = new Set(S.w.map(w => w.id));
-    d.w.forEach(w => { if (ids.has(w.id)) w.id = uid(); S.w.push(w); });
+    d.w.forEach(w => { if (ids.has(w.id)) w.id = uid(); w.ex.forEach(x => { if (x.restAfter === undefined) x.restAfter = x.rest; }); S.w.push(w); });
     const lids = new Set(S.log.map(z => z.id)); let nl = 0;
     (Array.isArray(d.log) ? d.log : []).forEach(z => { if (!lids.has(z.id)) { S.log.push(z); nl++; } });
     S.cur = d.w[0]?.id || S.cur; commit(); toast(`${d.w.length} schede${nl ? " e " + nl + " allenamenti" : ""} importati`, true);
   } catch (err) { toast("File non valido: " + err.message); }
 };
 // ---- app installabile e aggiornamenti ----
-const APP_VERSION = "1.0.1";
+const APP_VERSION = "1.1.0";
 try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
 let deferredInstall = null;
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredInstall = e; $("inst").hidden = false; });
