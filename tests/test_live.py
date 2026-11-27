@@ -17,7 +17,7 @@ with sync_playwright() as p:
     pg.screenshot(path=__import__("tempfile").gettempdir()+"/l3.png", full_page=True)
     pg.locator("[data-a=ladj][data-w=prev][data-f=v][data-d='-1']").click()  # corregge serie fatta: 7 rip
     pg.click("[data-a=lgo]"); pg.clock.run_for(20000); pg.click("[data-a=ldone]")
-    pg.click("[data-a=lskipx]")  # salta resto squat
+    pg.click("[data-a=lask][data-k=ex]"); pg.click("[data-a=lskip][data-m=skip]")  # salta del tutto il resto dello squat
     print("now:", pg.inner_text(".lvex h1"))
     pg.locator("[data-a=ljump][data-i='4']").click(); print("jumped:", pg.inner_text(".lvex h1"))
     pg.click("[data-a=lgo]"); pg.clock.run_for(50000); print("plank:", pg.inner_text("#lvt"), pg.inner_text("#lvl"))

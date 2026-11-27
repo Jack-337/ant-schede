@@ -7,7 +7,7 @@ Questo file riassume come è nata l'app e come è fatta, per continuare lo svilu
 - **Cos'è**: web app installabile (PWA), in italiano, per la home gym "ANT Private Training Facility" di Jack (Giacomo Silingardi) e dei suoi amici. Serve a creare schede di allenamento, allenarsi con timer di serie e recupero, tenere un diario dei progressi ed esportare le schede sull'orologio Garmin (Venu 4) come file workout `.fit`.
 - **Online**: https://jack-337.github.io/ant-schede/ (GitHub Pages dal branch `main`, cartella radice).
 - **Repository**: `Jack-337/ant-schede`, pubblico (obbligatorio per Pages con l'account gratuito).
-- **Versione attuale**: 1.2.0.
+- **Versione attuale**: 1.2.1.
 - **Utente**: Jack non sa programmare. Claude scrive tutto il codice, lo prova e lo pubblica; Jack prova l'app in palestra e propone miglioramenti. Si scrive in italiano, in modo semplice e conciso, senza gergo tecnico non spiegato.
 
 ## 2. Come lavorare con Jack
@@ -31,6 +31,7 @@ Questo file riassume come è nata l'app e come è fatta, per continuare lo svilu
 10. **v1.1.0**: Impostazioni al posto della Guida, con guida PDF scaricabile, tema scuro/chiaro/automatico, volume degli allarmi, vibrazione, bip 3-2-1, schermo acceso, pause predefinite, incrementi di carico e gestione dati. Inoltre: schermata di benvenuto; due pause per esercizio (tra le serie / prima del prossimo); superserie e circuiti; aumento di carico **proposto e da accettare**; fatica per serie (facile/giusta/dura); sforzo percepito 1-10 come sul Garmin.
 11. **v1.1.1**: elenco schede con pressione lunga (o tasto destro) per spostare, duplicare ed eliminare; pulsante "+" in fondo all'elenco; nella scheda resta solo "Esporta per Garmin".
 12. **v1.2.0**: sezioni **Riscaldamento** e **Defaticamento** in ogni scheda, con proposta automatica in base ai muscoli della scheda, 6 routine pronte e foto animate (34 esercizi con due foto alternate, da free-exercise-db, pubblico dominio). In "Allenati ora" queste sezioni avanzano da sole (5 s di preparazione, poi il conto alla rovescia, doppio bip a metà per gli esercizi "per lato"). Nel `.fit` diventano passi con intensità `warmup` e `cooldown`.
+13. **v1.2.1**: in "Allenati ora" i pulsanti "Salta serie" / "Salta esercizio" non saltano subito (Jack li premeva per errore): aprono un riquadro con **Recupera alla fine**, **Salta del tutto** e **Annulla**. Le serie rimandate hanno stato `later`; finite le altre tornano `todo` con `rec: true` (etichetta "Recupero") e compare il messaggio "Ora recuperi le serie rimandate". Si possono anche riprendere subito toccando l'esercizio nell'elenco.
 
 ## 4. Struttura del repository
 

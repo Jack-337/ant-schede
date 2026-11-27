@@ -660,6 +660,11 @@ const curX = () => S.live.ex[S.live.i];
 function goNext(L, phase) {
   const n = L.q.length; let k = -1;
   for (let d = 1; d <= n; d++) { const kk = (L.k + d) % n, [i, j] = L.q[kk]; if (L.ex[i].sets[j].st === "todo") { k = kk; break; } }
+  if (k < 0) {
+    // finite le serie normali: si recuperano quelle rimandate ("later")
+    k = L.q.findIndex(([i, j]) => L.ex[i].sets[j].st === "later");
+    if (k >= 0) { L.ex.forEach(x => x.sets.forEach(s => { if (s.st === "later") { s.st = "todo"; s.rec = true; } })); toast("Ora recuperi le serie rimandate"); }
+  }
   if (k < 0) { if ((L.cool || []).some(z => z.st === "todo") && !L.coolDone) return startSection(L, "cool"); L.phase = "end"; L.endAt = Date.now(); return; }
   L.k = k; [L.i, L.j] = L.q[k]; L.phase = phase; L.t0 = Date.now(); L.beeped = false; L.cd = 4;
 }
@@ -705,7 +710,14 @@ function stretchTick() {
   countdown(rem);
   if (rem <= 0) { x.st = "done"; beep(1320, 0.3); nextStretch(L); save(); renderLive(); }
 }
-function liveCounts(L) { let tot = 0, done = 0, skip = 0; L.ex.forEach(x => x.sets.forEach(s => { tot++; if (s.st === "done") done++; if (s.st === "skip") skip++; })); return { tot, done, skip }; }
+function liveCounts(L) { let tot = 0, done = 0, skip = 0, later = 0; L.ex.forEach(x => x.sets.forEach(s => { tot++; if (s.st === "done") done++; if (s.st === "skip") skip++; if (s.st === "later") later++; })); return { tot, done, skip, later }; }
+// pulsanti "salta": prima chiedono se saltare del tutto o recuperare alla fine
+function skipRow(L, setTxt, exTxt) {
+  if (!L.ask) return `<div class="lvrow"><button class="ghost" data-a="lask" data-k="set">${setTxt}</button>${exTxt ? `<button class="ghost" data-a="lask" data-k="ex">${exTxt}</button>` : ""}</div>`;
+  const x = curX(), ex = L.ask === "ex", n = ex ? x.sets.filter(z => z.st === "todo").length : 1, more = n > 1;
+  return `<div class="prop ask"><div><b>${ex ? "Saltare l'esercizio?" : "Saltare la serie?"}</b><span>${ex ? (more ? `Restano ${n} serie di ${esc(x.n)}.` : `Resta 1 serie di ${esc(x.n)}.`) : `Serie ${L.j + 1} di ${esc(x.n)}.`} Puoi ${more ? "farle" : "farla"} alla fine dell'allenamento oppure ${more ? "saltarle" : "saltarla"} del tutto (non ${more ? "verranno registrate" : "verrà registrata"}).</span></div>
+    <div class="pbtn"><button class="go" data-a="lskip" data-m="later">Recupera alla fine</button><button class="ghost" data-a="lskip" data-m="skip">Salta del tutto</button><button class="ghost" data-a="lask" data-k="">Annulla</button></div></div>`;
+}
 function adjBox(L, i, j, title, act) {
   const x = L.ex[i], s = x.sets[j], u = x.mode === "reps" ? "rip" : "s", step = S.cfg.incUp < 2.5 ? S.cfg.incUp : 2.5;
   return `<div class="adj"><span class="lbl">${title}</span><div class="adjr">
@@ -738,17 +750,17 @@ function renderLive() {
   if (L.phase === "end") return renderLiveEnd(top);
   if (L.phase === "stretch") return renderStretch(top);
   const x = curX(), s = x.sets[L.j], nSets = x.sets.length;
-  const head = `<div class="lvex"><span>${groupLabel(L)}Esercizio ${L.i + 1} di ${L.ex.length} · serie ${L.j + 1} di ${nSets}</span><h1>${esc(x.n)}</h1>${x.last ? `<small>Ultima volta ${esc(x.last)}</small>` : ""}</div>`;
+  const head = `<div class="lvex"><span>${s.rec ? "Recupero · " : ""}${groupLabel(L)}Esercizio ${L.i + 1} di ${L.ex.length} · serie ${L.j + 1} di ${nSets}</span><h1>${esc(x.n)}</h1>${x.last ? `<small>Ultima volta ${esc(x.last)}</small>` : ""}</div>`;
   let mid = "";
   const target = `${x.mode === "reps" ? s.v + " rip" : s.v + " s"}${s.kg ? " × " + fmtN(s.kg) + " kg" : ""}`;
   if (L.phase === "ready") {
     mid = `${feelRow(L)}${adjBox(L, L.i, L.j, "Questa serie", "cur")}${hintLine(x, s)}
       <button class="go big" data-a="lgo">Inizia serie</button>
-      <div class="lvrow"><button class="ghost" data-a="lskip">Salta serie</button><button class="ghost" data-a="lskipx">Salta esercizio</button></div>`;
+      ${skipRow(L, "Salta serie", "Salta esercizio")}`;
   } else if (L.phase === "work") {
     mid = `<div class="clock" id="lvc"><span id="lvl">${x.mode === "time" ? "Tempo rimanente" : "Serie in corso"}</span><b id="lvt">0:00</b><em>${target}</em></div>
       <button class="go big" data-a="ldone">Serie fatta</button>
-      <div class="lvrow"><button class="ghost" data-a="lskip">Salta serie</button><button class="ghost" data-a="lskipx">Salta esercizio</button></div>`;
+      ${skipRow(L, "Salta serie", "Salta esercizio")}`;
   } else if (L.phase === "rest") {
     const p = L.prev, nx = L.i !== p[0] ? `Prossimo esercizio: <b>${esc(x.n)}</b>` : `Prossima: serie ${L.j + 1} di ${nSets}`;
     mid = `<div class="clock rest" id="lvc"><span id="lvl">Recupero</span><b id="lvt">${fmtT(L.restDur)}</b><em id="lvx">di ${fmtT(L.restDur)}</em></div>
@@ -756,12 +768,12 @@ function renderLive() {
       ${adjBox(L, L.i, L.j, "Prossima serie", "cur")}${hintLine(x, s)}
       <button class="go big" data-a="lgo">Inizia serie</button>
       ${feelRow(L)}${adjBox(L, p[0], p[1], "Serie appena fatta: correggi se serve", "prev")}
-      <div class="lvrow"><button class="ghost" data-a="lskip">Salta prossima serie</button>${L.i === p[0] ? `<button class="ghost" data-a="lskipx">Salta resto esercizio</button>` : ""}</div>`;
+      ${skipRow(L, "Salta prossima serie", L.i === p[0] ? "Salta resto esercizio" : "")}`;
   }
   const list = `<div class="lvlist"><span class="lbl">Scheda di oggi · tocca un esercizio per passarci</span>${L.ex.map((y, i) => {
-    const d = y.sets.filter(z => z.st === "done").length, sk = y.sets.filter(z => z.st === "skip").length, all = y.sets.length;
+    const d = y.sets.filter(z => z.st === "done").length, sk = y.sets.filter(z => z.st === "skip").length, lt = y.sets.filter(z => z.st === "later").length, all = y.sets.length;
     const st = i === L.i ? "cur" : d + sk === all ? (d ? "ok" : "sk") : "";
-    return `<button class="lvi ${st}" data-a="ljump" data-i="${i}" ${d + sk === all ? "disabled" : ""}><b>${i + 1}</b><span>${esc(y.n)}</span><em>${d}/${all}${sk ? " · " + sk + " saltate" : ""}</em></button>`;
+    return `<button class="lvi ${st}" data-a="ljump" data-i="${i}" ${d + sk === all ? "disabled" : ""}><b>${i + 1}</b><span>${esc(y.n)}</span><em>${d}/${all}${sk ? " · " + sk + " saltate" : ""}${lt ? " · " + lt + " alla fine" : ""}</em></button>`;
   }).join("")}</div>`;
   $("ed").innerHTML = `<div class="lv">${top}${head}${mid}${list}</div>`;
   liveTick();
@@ -779,7 +791,7 @@ function rpeRow(v, act) {
 function renderLiveEnd(top) {
   const L = S.live, en = liveEntry(L), c = liveCounts(L), vol = sVol(en);
   $("ed").innerHTML = `<div class="lv">${top}<div class="lvex"><span>Allenamento concluso</span><h1>Bel lavoro!</h1></div>
-    <div class="stats"><div><b>${fmtT(en.dur)}</b><span>durata</span></div><div><b>${c.done}</b><span>serie fatte${c.skip ? " · " + c.skip + " saltate" : ""}</span></div><div><b>${fmtN(vol)} kg</b><span>volume</span></div><div><b>${en.ex.length}</b><span>esercizi</span></div></div>
+    <div class="stats"><div><b>${fmtT(en.dur)}</b><span>durata</span></div><div><b>${c.done}</b><span>serie fatte${c.skip ? " · " + c.skip + " saltate" : ""}${c.later ? " · " + c.later + " da recuperare" : ""}</span></div><div><b>${fmtN(vol)} kg</b><span>volume</span></div><div><b>${en.ex.length}</b><span>esercizi</span></div></div>
     ${(L.cool || []).some(z => z.st === "todo") && !L.coolDone ? `<button class="addex" data-a="lcool" style="margin-bottom:14px">Fai il defaticamento (${L.cool.filter(z => z.st === "todo").length} esercizi, ≈ ${Math.max(1, Math.round(stSec(L.cool.filter(z => z.st === "todo")) / 60))} min)</button>` : ""}
     ${en.ex.length ? `<div class="card"><h2>Muscoli allenati</h2>${bodyMap([en])}</div>` : `<div class="empty">Nessuna serie completata.</div>`}
     ${rpeRow(L.rpe, "lrpe")}
@@ -789,6 +801,8 @@ function renderLiveEnd(top) {
 function liveAction(a, b) {
   const L = S.live; if (!L) return;
   ensureAudio();
+  if (a !== "lask" && a !== "lskip" && a !== "lsnd" && a !== "ladj" && a !== "lfeel") L.ask = null;
+  if (a === "lask") { L.ask = b.dataset.k || null; save(); return renderLive(); }
   if (a === "lsnd") { S.mute = !S.mute; return commit(); }
   if (a === "spause") { if (L.paused) { L.t0 += Date.now() - L.pausedAt; L.paused = false; } else { L.paused = true; L.pausedAt = Date.now(); } save(); return renderLive(); }
   if (a === "snext") { L[L.sec][L.si].st = "skip"; nextStretch(L); save(); return renderLive(); }
@@ -813,9 +827,16 @@ function liveAction(a, b) {
     goNext(L, "rest");
     if (L.phase === "rest") { L.restDur = rest; if (!rest) L.phase = "ready"; }
   }
-  if (a === "lskip") { curX().sets[L.j].st = "skip"; goNext(L, "ready"); }
-  if (a === "lskipx") { curX().sets.forEach(z => { if (z.st === "todo") z.st = "skip"; }); goNext(L, "ready"); }
-  if (a === "ljump") { const i = +b.dataset.i, k = L.q.findIndex(([qi, qj]) => qi === i && L.ex[qi].sets[qj].st === "todo"); if (k >= 0) { L.k = k; [L.i, L.j] = L.q[k]; if (L.phase !== "rest") L.phase = "ready"; } }
+  if (a === "lskip") {
+    const x = curX(), m = b.dataset.m === "later" ? "later" : "skip", all = L.ask === "ex"; L.ask = null;
+    x.sets.forEach((z, k) => { if (z.st === "todo" && (all || k === L.j)) z.st = m; });
+    goNext(L, "ready");
+  }
+  if (a === "ljump") {
+    const i = +b.dataset.i, find = () => L.q.findIndex(([qi, qj]) => qi === i && L.ex[qi].sets[qj].st === "todo");
+    let k = find();
+    if (k < 0) { L.ex[i].sets.forEach(z => { if (z.st === "later") { z.st = "todo"; z.rec = true; } }); k = find(); }
+    if (k >= 0) { L.k = k; [L.i, L.j] = L.q[k]; if (L.phase !== "rest") L.phase = "ready"; } }
   if (a === "lend") { L.back = L.phase; L.phase = "end"; L.endAt = Date.now(); }
   if (a === "lresume") { L.phase = L.back && L.back !== "end" ? L.back : "ready"; if (L.phase === "work") L.t0 = Date.now(); L.endAt = null; if (S.cfg.wake) wake(); }
   if (a === "lsave") { const en = liveEntry(L); S.live = null; unwake(); return storeSession(en); }
@@ -893,7 +914,7 @@ function renderSettings() {
     <div class="srow"><div><b>Aumento proposto: gambe e glutei</b></div>${segC("incLow", [[2.5, "2,5 kg"], [5, "5 kg"], [10, "10 kg"]])}</div></section>
   <section class="set"><h2>Dati</h2><p class="sub">Schede e diario restano salvati solo su questo dispositivo: ${S.w.length} ${S.w.length === 1 ? "scheda" : "schede"} e ${nl} ${nl === 1 ? "allenamento" : "allenamenti"}. Fai un backup ogni tanto e conservalo, per esempio su Google Drive.</p>
     <div class="bar"><button class="ghost" data-a="bk">${svg("dl")}Backup</button><button class="ghost" data-a="im">Importa backup</button><button class="ghost danger${wipeArm ? " armed" : ""}" data-a="wipe">${wipeArm ? "Tocca di nuovo per cancellare tutto" : "Cancella tutti i dati"}</button></div></section>
-  <p class="ver">ANT Schede · versione 1.2.0</p>`;
+  <p class="ver">ANT Schede · versione 1.2.1</p>`;
 }
 function renderWelcome() {
   $("ed").innerHTML = `<div class="wel"><h1 class="h">Benvenuto nell'app <em>ANT</em></h1><p class="sub">Schede, timer e diario della nostra home gym. Funziona anche senza connessione.</p>
@@ -1300,7 +1321,7 @@ $("imf").onchange = async e => {
   } catch (err) { toast("File non valido: " + err.message); }
 };
 // ---- app installabile e aggiornamenti ----
-const APP_VERSION = "1.2.0";
+const APP_VERSION = "1.2.1";
 try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) {}
 let deferredInstall = null;
 window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); deferredInstall = e; $("inst").hidden = false; });

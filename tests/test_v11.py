@@ -29,7 +29,7 @@ with sync_playwright() as p:
     print("rest label:", pg.inner_text("#lvl"), pg.inner_text("#lvt"))
     pg.click("[data-a=lfeel][data-v='3']"); pg.screenshot(path=__import__("tempfile").gettempdir()+"/v_rest.png", full_page=True)
     # salta squat restante, salta panca -> arriva alla superserie
-    pg.click("[data-a=lskipx]"); pg.click("[data-a=lskipx]")
+    for _ in range(2): pg.click("[data-a=lask][data-k=ex]"); pg.click("[data-a=lskip][data-m=skip]")
     print("ss head:", pg.inner_text(".lvex span"))
     pg.click("[data-a=lgo]"); pg.clock.run_for(15000); pg.click("[data-a=ldone]")
     print("after A:", pg.evaluate("document.body.dataset.view"), pg.evaluate("JSON.parse(localStorage.getItem('ant-schede-v1')).live.phase"), pg.inner_text(".lvex h1"), "|", pg.inner_text(".lvex span"))
