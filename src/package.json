@@ -1,0 +1,15 @@
+{
+  "name": "ant-schede",
+  "private": true,
+  "type": "module",
+  "description": "Sorgenti dell'app ANT Schede (build in un unico index.html nella radice del repo)",
+  "scripts": {
+    "build:sdk": "esbuild entry.js --bundle --minify --format=iife --outfile=fitsdk.min.js",
+    "build": "node build-site.mjs",
+    "catalog": "node build-catalog.mjs"
+  },
+  "dependencies": {
+    "@garmin/fitsdk": "^21.221.0",
+    "esbuild": "^0.28.2"
+  }
+}

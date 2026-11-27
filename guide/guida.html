@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Guida all'app ANT Schede</title>
+<style>
+@page{size:A4;margin:16mm 15mm 16mm 15mm}
+*{box-sizing:border-box}
+body{margin:0;font:10.5pt/1.5 "DejaVu Sans",Arial,sans-serif;color:#141414}
+h1,h2,h3{font-family:"DejaVu Sans Condensed","Arial Narrow",Arial,sans-serif;line-height:1.15;margin:0}
+.cover{height:262mm;display:flex;flex-direction:column;justify-content:space-between;page-break-after:always}
+.band{background:#000;border-radius:6mm;padding:14mm 12mm;color:#fff}
+.band img{height:22mm;display:block;margin-bottom:12mm}
+.band h1{font-size:34pt;font-weight:800}
+.band p{font-size:13pt;color:#cfcfcf;margin:6mm 0 0}
+.toc{columns:2;column-gap:10mm;font-size:11pt;padding:0 2mm}
+.toc li{margin-bottom:2.5mm;break-inside:avoid}
+.meta{font-size:9.5pt;color:#666;padding:0 2mm}
+section{page-break-before:always}
+section.cont{page-break-before:auto;margin-top:8mm}
+h2{font-size:22pt;font-weight:800;display:flex;align-items:center;gap:4mm;margin-bottom:4mm}
+h2 .n{background:#e30d0f;color:#fff;border-radius:2.5mm;width:11mm;height:11mm;display:inline-grid;place-items:center;font-size:15pt;flex:none}
+h3{font-size:13pt;font-weight:700;margin:5mm 0 1.5mm;color:#e30d0f}
+p{margin:0 0 2.5mm}
+ul,ol{margin:0 0 3mm;padding-left:5.5mm}li{margin-bottom:1.2mm}
+b{font-weight:700}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 58mm;gap:7mm;align-items:start;margin-bottom:4mm}
+.shots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5mm;margin:3mm 0 5mm}.shots.three{grid-template-columns:repeat(3,minmax(0,1fr));padding:0 10mm}.cols{columns:2;column-gap:8mm}.cols h3{break-after:avoid}.cols ul,.cols p{break-inside:auto}
+.shot{border:0.4mm solid #d6d6d2;border-radius:3mm;overflow:hidden;break-inside:avoid}
+.shot img{width:100%;display:block}
+.cap{font-size:8.5pt;color:#666;margin-top:1.5mm;text-align:center}
+.tip{border-left:1.2mm solid #e30d0f;background:#f6f6f4;padding:3mm 4mm;border-radius:0 2mm 2mm 0;margin:3mm 0;break-inside:avoid}
+.tip b{color:#e30d0f}
+table{border-collapse:collapse;width:100%;font-size:10pt;margin:2mm 0 4mm}
+td{border-bottom:0.3mm solid #e2e2de;padding:2mm 2mm 2mm 0;vertical-align:top}
+td:first-child{font-weight:700;width:46mm}
+.faq{break-inside:avoid;margin-bottom:3.5mm}.faq b{display:block}
+.foot{font-size:8.5pt;color:#777;margin-top:8mm;border-top:0.3mm solid #ddd;padding-top:2mm}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="band">
+    <img src="../src/logo_dark.png" alt="ANT Private Training Facility">
+    <h1>Guida all'app<br>ANT Schede</h1>
+    <p>Schede di allenamento, timer, diario dei progressi ed export per Garmin.</p>
+  </div>
+  <div>
+    <ol class="toc">
+      <li>Cos'è l'app</li>
+      <li>Installarla e usarla senza connessione</li>
+      <li>Creare una scheda</li>
+      <li>Pause, superserie e circuiti</li>
+      <li>Riscaldamento e defaticamento</li>
+      <li>Allenati ora</li>
+      <li>Registrare a mano</li>
+      <li>Portare la scheda sul Garmin</li>
+      <li>Il Diario</li>
+      <li>Impostazioni</li>
+      <li>Backup e cambio di telefono</li>
+      <li>Problemi frequenti</li>
+    </ol>
+  </div>
+  <p class="meta">Versione dell'app 1.2.0 · Indirizzo: jack-337.github.io/ant-schede</p>
+</div>
+
+<section>
+  <h2><span class="n">1</span>Cos'è l'app</h2>
+  <div class="row">
+    <div>
+      <p>ANT Schede è l'app della nostra home gym. Serve a tre cose:</p>
+      <ul>
+        <li><b>Preparare le schede</b> con gli esercizi, le serie, i carichi e le pause, scegliendo tra oltre 1.500 esercizi: gli stessi che riconosce l'orologio Garmin.</li>
+        <li><b>Allenarsi</b> seguendo la scheda sul telefono, con il timer della serie e del recupero, i carichi proposti in base all'ultima volta e la possibilità di saltare esercizi. In alternativa la scheda si esporta sull'orologio Garmin.</li>
+        <li><b>Tenere il diario</b>: record personali, grafici dei progressi, costanza e mappa dei muscoli allenati.</li>
+      </ul>
+      <p>L'app è in italiano e funziona anche senza connessione. I dati di ognuno restano solo sul proprio telefono: nessun altro li vede, nemmeno chi gestisce l'app.</p>
+      <p>Al primo avvio compare la schermata di benvenuto. Premi <b>Inizia</b> per andare alle schede.</p>
+      <div class="tip"><b>In breve:</b> in basso trovi sempre i due pulsanti principali, <b>Allenati ora</b> (rosso) e <b>Registra a mano</b>. In alto passi tra <b>Schede</b>, <b>Diario</b> e <b>Impostazioni</b>.</div>
+    </div>
+    <div><div class="shot"><img src="shots/01-benvenuto.png"></div><div class="cap">La schermata di benvenuto</div></div>
+  </div>
+
+  <h2 style="margin-top:6mm"><span class="n">2</span>Installarla e usarla senza connessione</h2>
+  <p>Apri il link <b>jack-337.github.io/ant-schede</b> con la connessione attiva, una volta sola, e installa l'app:</p>
+  <ul>
+    <li><b>iPhone</b>: apri il link in <b>Safari</b>, tocca il pulsante <b>Condividi</b> (il quadrato con la freccia) e poi <b>Aggiungi alla schermata Home</b>.</li>
+    <li><b>Android</b>: apri il link in <b>Chrome</b> e tocca <b>Installa app</b> in alto, oppure il menu ⋮ e poi <b>Installa app</b>.</li>
+  </ul>
+  <p>Da quel momento apri l'app con l'icona <b>ANT</b>: funziona anche in palestra senza rete. Ogni serie che segni viene salvata subito sul telefono. Se il telefono si blocca o chiudi l'app a metà allenamento, la ritrovi dove l'avevi lasciata.</p>
+  <div class="tip"><b>Aggiornamenti:</b> quando esce una versione nuova, aprendo l'app con la connessione compare <b>Nuova versione disponibile</b>. Tocca <b>Aggiorna</b>: le tue schede e il diario restano.</div>
+</section>
+
+<section>
+  <h2><span class="n">3</span>Creare una scheda</h2>
+  <div class="row">
+    <div>
+      <ol>
+        <li>Vai in <b>Schede</b> e premi il pulsante <b>+</b> in fondo all'elenco delle schede. Su telefono l'elenco è in alto e scorre verso destra, sul computer è a sinistra.</li>
+        <li>Scrivi il nome della scheda, per esempio <i>Giorno A</i>, ed eventualmente una nota.</li>
+        <li>Premi <b>+ Aggiungi esercizio</b> in fondo alla scheda.</li>
+      </ol>
+      <h3>Scegliere l'esercizio</h3>
+      <p>Puoi cercare in italiano o in inglese: scrivendo «rematore manubri» trovi anche gli esercizi che hanno solo il nome inglese. Puoi filtrare per <b>muscolo</b> (Petto, Schiena, Gambe…) e per <b>attrezzo</b> (Bilanciere, Manubri, Cavi, Macchine…). Il filtro <b>Le mie</b> mostra gli esercizi che usi già.</p>
+      <p>Se l'esercizio non c'è, scrivi il nome e scegli <b>Usa come esercizio personalizzato</b>. Poi, nella scheda, indica quali muscoli lavora: servono per la mappa del Diario.</p>
+      <h3>Impostare l'esercizio</h3>
+      <ul>
+        <li><b>Tipo</b>: Ripetizioni oppure Tempo (per esempio il plank).</li>
+        <li><b>Serie</b>: con i pulsanti − e +.</li>
+        <li><b>Ripetizioni e kg</b>: valgono per tutte le serie. Per una piramidale spunta <b>Serie diverse</b> e imposta ogni serie.</li>
+        <li>Con le frecce sposti l'esercizio, con l'icona doppia lo duplichi, con il cestino lo elimini. Se elimini per sbaglio, compare <b>Annulla</b> in basso.</li>
+      </ul>
+      <div class="tip"><b>Spostare, duplicare, eliminare:</b> tieni premuta una scheda nell'elenco (sul computer: clic con il tasto destro). Si apre un menu con Sposta prima, Sposta dopo, Duplica ed Elimina. Se elimini per sbaglio, tocca Annulla.</div>
+      <p>Tutto si salva da solo: non c'è un tasto Salva. Sopra gli esercizi vedi il riepilogo con numero di esercizi, serie, durata stimata e volume.</p>
+    </div>
+    <div>
+      <div class="shot"><img src="shots/04-esercizi.png"></div><div class="cap">Ricerca con i filtri Petto e Manubri</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">4</span>Pause, superserie e circuiti</h2>
+  <div class="row">
+    <div>
+      <h3>Le due pause di ogni esercizio</h3>
+      <ul>
+        <li><b>Recupero tra le serie</b>: il riposo tra una serie e l'altra dello stesso esercizio.</li>
+        <li><b>Pausa prima del prossimo esercizio</b>: il riposo dopo l'ultima serie, prima di passare all'esercizio successivo. Di solito è più lunga, perché serve anche a cambiare attrezzo.</li>
+      </ul>
+      <p>Scrivi i secondi o tocca i valori rapidi (60, 90, 120, 180). I valori proposti per i nuovi esercizi si cambiano nelle Impostazioni.</p>
+      <h3>Superserie e circuiti</h3>
+      <p>In una superserie fai due esercizi uno dopo l'altro e poi recuperi; con tre o più esercizi diventa un circuito. Sotto ogni esercizio c'è il pulsante <b>Collega al successivo (superserie)</b>. Gli esercizi collegati hanno un bordo rosso e la scritta <b>Superserie</b> o <b>Circuito</b>.</p>
+      <ul>
+        <li>Il numero di <b>giri</b> è lo stesso per tutti gli esercizi del gruppo: se lo cambi su uno, cambia su tutti.</li>
+        <li><b>Pausa verso il prossimo esercizio</b>: il tempo per passare da un esercizio all'altro del giro (0 = subito).</li>
+        <li><b>Recupero tra i giri</b>, sull'ultimo esercizio del gruppo: il riposo dopo ogni giro.</li>
+        <li><b>Pausa dopo la superserie</b>: il riposo prima dell'esercizio successivo.</li>
+      </ul>
+      <p>Per sciogliere il gruppo tocca di nuovo il pulsante sotto l'esercizio (<i>tocca per scollegare</i>). Superserie e circuiti funzionano anche sull'orologio Garmin.</p>
+    </div>
+    <div>
+      <div class="shot"><img src="shots/03-superserie.png"></div><div class="cap">Rematore e lento collegati in superserie</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">5</span>Riscaldamento e defaticamento</h2>
+  <div class="row">
+    <div>
+      <p>Ogni scheda ha due sezioni facoltative: <b>Riscaldamento</b>, prima degli esercizi, e <b>Defaticamento</b>, in fondo. Contengono esercizi di mobilità e stretching a tempo, con una foto animata che mostra il movimento.</p>
+      <h3>Tre modi per riempirle</h3>
+      <ul>
+        <li><b>Proponi in base alla scheda</b>: l'app guarda i muscoli degli esercizi che hai inserito e sceglie movimenti di mobilità (riscaldamento) o allungamenti (defaticamento) per quelle zone.</li>
+        <li><b>Routine pronte</b>: Riscaldamento generale, Mobilità parte alta o bassa, Stretching gambe, parte alta o completo.</li>
+        <li><b>+ Aggiungi</b>: apre la ricerca già filtrata su «Stretching e mobilità». Gli esercizi con la foto hanno l'animazione.</li>
+      </ul>
+      <h3>Impostare ogni esercizio</h3>
+      <p>Con − e + cambi il tempo a passi di 5 secondi. <b>Per lato</b> raddoppia il tempo: metà per il lato destro e metà per il sinistro. Il cestino toglie l'esercizio (con Annulla).</p>
+    </div>
+    <div><div class="shot"><img src="shots/14-riscaldamento.png"></div><div class="cap">Riscaldamento proposto in base alla scheda</div></div>
+  </div>
+  <div class="row">
+    <div>
+      <h3>Durante Allenati ora</h3>
+      <p>Il riscaldamento parte da solo prima della prima serie e il defaticamento dopo l'ultima, <b>senza toccare il telefono</b>: 5 secondi per prepararti, poi il conto alla rovescia. Negli esercizi per lato un doppio bip ti dice quando cambiare.</p>
+      <p>Puoi mettere in <b>Pausa</b>, <b>Saltare</b> un esercizio o saltare tutta la sezione. Se termini l'allenamento prima, nel riepilogo trovi il pulsante per fare comunque il defaticamento.</p>
+      <p>Riscaldamento e defaticamento passano anche sull'orologio Garmin, come fasi di riscaldamento e defaticamento dell'allenamento.</p>
+      <div class="tip"><b>Le foto</b> vengono da un archivio di esercizi di pubblico dominio (free-exercise-db) e sono salvate nell'app: funzionano anche senza connessione.</div>
+    </div>
+    <div><div class="shot"><img src="shots/15-stretch-live.png"></div><div class="cap">Durante l'allenamento</div></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">6</span>Allenati ora</h2>
+  <p>Apri la scheda e premi il pulsante rosso <b>Allenati ora</b>, sempre in basso. Funziona senza orologio, sul telefono o sul computer. Lo schermo resta acceso durante l'allenamento (si può cambiare nelle Impostazioni).</p>
+  <div class="shots">
+    <div><div class="shot"><img src="shots/05-proposta.png"></div><div class="cap">Carico proposto da accettare</div></div>
+    <div><div class="shot"><img src="shots/06-serie.png"></div><div class="cap">Serie in corso</div></div>
+    <div><div class="shot"><img src="shots/07-recupero.png"></div><div class="cap">Recupero finito: pausa extra</div></div>
+    <div><div class="shot"><img src="shots/08-fine.png"></div><div class="cap">Fine e sforzo percepito</div></div>
+  </div>
+  <div class="cols">
+      <h3>1. Controlla la serie</h3>
+      <p>Ripetizioni e kg partono dall'ultima volta che hai fatto l'esercizio. Li cambi con − e +.</p>
+      <h3>2. Il carico proposto</h3>
+      <p>Se l'ultima volta hai completato tutte le ripetizioni senza serie dure, l'app propone di aumentare (di 2,5 kg per la parte alta e 5 kg per gambe e glutei, modificabili nelle Impostazioni). L'aumento <b>non è automatico</b>: tocca <b>Accetta</b> oppure <b>Resta</b> al carico di prima. La scelta vale per tutte le serie dell'esercizio.</p>
+      <h3>3. Fai la serie</h3>
+      <p>Premi <b>Inizia serie</b>: il timer conta il tempo (negli esercizi a tempo fa il conto alla rovescia). A fine serie premi <b>Serie fatta</b>.</p>
+      <h3>4. Il recupero</h3>
+      <p>Parte il conto alla rovescia. Negli ultimi tre secondi senti tre bip; alla fine suona l'allarme, il telefono vibra (se lo supporta) e il bordo dello schermo lampeggia di rosso. <b>La serie successiva non parte da sola</b>: il timer diventa rosso e conta la pausa extra (per esempio +0:13) finché non premi <b>Inizia serie</b>.</p>
+      <p>Durante il recupero puoi:</p>
+      <ul>
+        <li>indicare com'è andata la serie: <b>Facile</b>, <b>Giusta</b> o <b>Dura</b>. Una serie dura blocca la proposta di aumento la volta successiva;</li>
+        <li>correggere ripetizioni e kg della serie appena fatta;</li>
+        <li>preparare la serie successiva.</li>
+      </ul>
+      <h3>5. Saltare o cambiare ordine</h3>
+      <p>Usa <b>Salta serie</b> o <b>Salta esercizio</b>. In fondo c'è la lista della scheda: tocca un esercizio per passarci, per esempio se una macchina è occupata.</p>
+      <h3>6. Fine</h3>
+      <p>All'ultima serie, oppure con <b>Termina</b>, vedi il riepilogo con durata, serie, volume e muscoli allenati. Indica lo <b>sforzo percepito</b> da 1 a 10, come sul Garmin, aggiungi una nota e premi <b>Salva nel diario</b>.</p>
+  </div>
+  <div class="tip"><b>Suoni:</b> tieni il volume del telefono acceso. L'icona dell'altoparlante in alto spegne e riaccende i suoni durante l'allenamento. Su iPhone la modalità silenziosa può bloccare l'allarme: in quel caso tieni d'occhio il timer, che diventa rosso.</div>
+</section>
+
+<section>
+  <h2><span class="n">7</span>Registrare a mano</h2>
+  <p>Se ti sei allenato senza l'app, premi <b>Registra a mano</b> in basso, accanto ad Allenati ora. Trovi la scheda con i valori previsti:</p>
+  <ol>
+    <li>scegli la data;</li>
+    <li>correggi ripetizioni e kg con quello che hai fatto davvero;</li>
+    <li>togli la spunta <b>Fatta</b> alle serie saltate;</li>
+    <li>indica lo sforzo percepito e premi <b>Salva nel diario</b>.</li>
+  </ol>
+
+  <h2 style="margin-top:8mm"><span class="n">8</span>Portare la scheda sul Garmin</h2>
+  <div class="row">
+    <div>
+      <p>L'orologio va collegato al computer, quindi questa parte si fa dal PC (apri l'app all'indirizzo jack-337.github.io/ant-schede).</p>
+      <ol>
+        <li>Apri la scheda e premi <b>Esporta per Garmin</b>, sotto il nome della scheda. Si scarica un file che finisce in <b>.fit</b>.</li>
+        <li>Collega l'orologio al computer con il suo cavo. Se il computer non ha la porta USB-C serve un adattatore da USB-C a USB-A che supporti i dati, non solo la ricarica.</li>
+        <li>Apri l'orologio come una chiavetta e vai nella cartella <b>GARMIN › NewFiles</b>.</li>
+        <li>Copia lì dentro il file .fit.</li>
+        <li>Scollega l'orologio e aspetta qualche secondo. Trovi la scheda nell'attività <b>Forza</b>, tra gli <b>Allenamenti</b>.</li>
+      </ol>
+      <p>Su Mac l'orologio non compare nel Finder: installa il programma gratuito <b>OpenMTP</b> e usa quello per copiare il file.</p>
+      <p>Ripetizioni, carichi, recuperi, superserie e circuiti passano sull'orologio; gli esercizi del catalogo vengono riconosciuti dal Garmin.</p>
+    </div>
+    <div><div class="shot"><img src="shots/13-export.png"></div><div class="cap">Il pulsante Esporta per Garmin</div></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">9</span>Il Diario</h2>
+  <div class="shots three">
+    <div><div class="shot"><img src="shots/10-diario.png"></div><div class="cap">Riepilogo del mese</div></div>
+    <div><div class="shot"><img src="shots/09-muscoli.png"></div><div class="cap">Mappa dei muscoli allenati</div></div>
+    <div><div class="shot"><img src="shots/11-progressi.png"></div><div class="cap">Progressi per esercizio</div></div>
+  </div>
+      <p>In alto premi <b>Diario</b>. Trovi:</p>
+      <ul>
+        <li><b>Riepilogo</b>: allenamenti e volume del mese rispetto al mese scorso, ultimo allenamento, totale.</li>
+        <li><b>Muscoli allenati</b>: una figura vista di fronte e di schiena. Più il rosso è acceso, più serie hanno coinvolto quel muscolo. Puoi vedere l'ultimo allenamento, gli ultimi 7 o 30 giorni: utile per capire cosa stai trascurando.</li>
+        <li><b>Progressi per esercizio</b>: scegli un esercizio e vedi come cresce il carico nel tempo, con il record personale. Toccando un punto leggi la serie migliore e il massimale stimato.</li>
+        <li><b>Volume per allenamento</b>: kg totali sollevati nelle ultime sessioni.</li>
+        <li><b>Costanza</b>: un calendario delle ultime 20 settimane.</li>
+        <li><b>Storico</b>: tutti gli allenamenti con le serie, la fatica segnata, la durata e lo sforzo. Tocca una data per aprirla; con il cestino la elimini.</li>
+      </ul>
+      <p>Quando batti un record, al salvataggio compare il messaggio <b>Nuovo record</b>.</p>
+</section>
+
+<section>
+  <h2><span class="n">10</span>Impostazioni</h2>
+  <div class="row">
+    <div>
+      <table>
+        <tr><td>Guida</td><td>Scarica questa guida. «Rivedi il benvenuto» mostra di nuovo la schermata iniziale.</td></tr>
+        <tr><td>Tema</td><td>Scuro, Chiaro o Automatico (segue il tema del telefono).</td></tr>
+        <tr><td>Volume degli allarmi</td><td>In proporzione al volume del telefono. Il pulsante Prova fa suonare l'allarme.</td></tr>
+        <tr><td>Vibrazione</td><td>A fine recupero, sui telefoni che la supportano (non su iPhone).</td></tr>
+        <tr><td>Bip 3-2-1</td><td>Tre bip brevi negli ultimi secondi del recupero.</td></tr>
+        <tr><td>Schermo sempre acceso</td><td>Durante l'allenamento lo schermo non si spegne.</td></tr>
+        <tr><td>Recupero e pausa predefiniti</td><td>I valori proposti quando aggiungi un esercizio.</td></tr>
+        <tr><td>Aumento proposto</td><td>Di quanto salire quando l'app propone un carico maggiore: parte alta (1,25 / 2,5 / 5 kg) e gambe e glutei (2,5 / 5 / 10 kg).</td></tr>
+        <tr><td>Dati</td><td>Backup, Importa backup e Cancella tutti i dati (va toccato due volte; subito dopo puoi ancora annullare).</td></tr>
+      </table>
+    </div>
+    <div><div class="shot"><img src="shots/12-impostazioni.png"></div><div class="cap">Le Impostazioni</div></div>
+  </div>
+
+  <h2 style="margin-top:6mm"><span class="n">11</span>Backup e cambio di telefono</h2>
+  <p>I dati restano solo sul dispositivo dove li inserisci. Telefono e computer hanno dati separati.</p>
+  <ul>
+    <li>Ogni tanto vai in <b>Impostazioni › Dati</b> e premi <b>Backup</b>: scarichi un file con schede, diario e impostazioni. Conservalo, per esempio su Google Drive.</li>
+    <li>Su un telefono nuovo, o dopo aver cancellato i dati di navigazione, premi <b>Importa backup</b> e scegli quel file: ritrovi tutto. Lo stesso vale per portare le schede dal telefono al computer.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">12</span>Problemi frequenti</h2>
+  <div class="faq"><b>Ho cancellato qualcosa per sbaglio.</b>Subito dopo compare in basso il tasto Annulla: premilo entro qualche secondo.</div>
+  <div class="faq"><b>Non sento il suono a fine recupero.</b>Alza il volume del telefono, controlla che l'icona dell'altoparlante nell'allenamento non sia barrata e prova il volume in Impostazioni. Su iPhone la modalità silenziosa può bloccare i suoni.</div>
+  <div class="faq"><b>L'app non si apre senza connessione.</b>Aprila almeno una volta con la connessione dopo averla installata, così il telefono ne salva una copia. Su iPhone usa l'icona sulla schermata Home, non Safari.</div>
+  <div class="faq"><b>Non trovo più le mie schede.</b>Ogni browser e ogni dispositivo ha i suoi dati: apri l'app da quello di sempre (l'icona ANT installata). Se hai cambiato telefono, usa Importa backup.</div>
+  <div class="faq"><b>Il computer non vede l'orologio.</b>Prova un'altra porta USB e controlla che l'adattatore sia per i dati e non solo per la ricarica. Su Mac usa OpenMTP.</div>
+  <div class="faq"><b>La scheda non compare sull'orologio.</b>Controlla di aver copiato il file in GARMIN › NewFiles e non in un'altra cartella, poi scollega e riavvia l'orologio.</div>
+  <div class="faq"><b>Non vedo la nuova versione.</b>Apri l'app con la connessione; se il messaggio Aggiorna non compare, chiudila e riaprila.</div>
+  <p class="foot">ANT Schede · guida per la versione 1.2.0</p>
+</section>
+
+</body>
+</html>

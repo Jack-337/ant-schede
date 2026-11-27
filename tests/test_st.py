@@ -1,0 +1,31 @@
+# Test end-to-end con Playwright. Servire la radice del repo: python3 -m http.server 8000
+from playwright.sync_api import sync_playwright
+U = __import__("os").environ.get("ANT_URL", "http://localhost:8000/")
+with sync_playwright() as p:
+    b=p.chromium.launch(); errs=[]
+    ctx=b.new_context(viewport={"width":400,"height":880}, accept_downloads=True, service_workers="block"); pg=ctx.new_page(); pg.on("pageerror",lambda e:errs.append(str(e)))
+    pg.clock.install()
+    pg.goto(U); pg.evaluate("localStorage.clear()"); pg.reload(); pg.wait_for_timeout(400); pg.click("[data-a=wgo]")
+    pg.click("[data-a=ssug][data-s=warm]"); pg.click("[data-a=ssug][data-s=cool]"); pg.wait_for_timeout(300)
+    print("warm:", [t.split("\n")[0] for t in pg.locator(".secb.warm .srn").all_inner_texts()])
+    print("cool:", [t.split("\n")[0] for t in pg.locator(".secb.cool .srn").all_inner_texts()])
+    print("imgs loaded:", pg.evaluate("[...document.querySelectorAll('.secb .anim img')].filter(i=>i.complete&&i.naturalWidth>0).length"), "/", pg.locator(".secb .anim img").count())
+    pg.locator(".secb.warm").screenshot(path=__import__("tempfile").gettempdir()+"/st_warm.png")
+    pg.click("[data-a=spre][data-s=cool]"); pg.wait_for_timeout(150); pg.screenshot(path=__import__("tempfile").gettempdir()+"/st_pre.png"); pg.click(".prs >> nth=0"); print("preset toast:", pg.inner_text("#tmsg"))
+    pg.click("[data-a=sadd][data-s=warm]"); pg.wait_for_timeout(200); print("picker:", pg.inner_text("#cnt")); pg.screenshot(path=__import__("tempfile").gettempdir()+"/st_pick.png"); pg.fill("#q","neck"); pg.keyboard.press("Enter")
+    pg.click("[data-a=sside][data-s=warm][data-k='0']"); pg.click("[data-a=ssp][data-s=warm][data-k='0']")
+    print("stats:", pg.inner_text("#st").replace("\n"," "))
+    with pg.expect_download() as d: pg.click("[data-a=exp]")
+    d.value.save_as(__import__("tempfile").gettempdir()+"/st.fit")
+    # live
+    pg.click("#lv"); pg.wait_for_timeout(200); print("live phase:", pg.inner_text(".lvex span"), "|", pg.inner_text("#lvl"))
+    pg.clock.run_for(6000); pg.wait_for_timeout(100); print("after prep:", pg.inner_text("#lvl"), pg.inner_text("#lvt"))
+    pg.screenshot(path=__import__("tempfile").gettempdir()+"/st_live.png")
+    pg.clock.run_for(20000); print("side switch?:", pg.inner_text("#lvl"))
+    pg.clock.run_for(20000); pg.wait_for_timeout(100); print("next item:", pg.inner_text(".lvex span"), pg.inner_text(".lvex h1"))
+    pg.click("[data-a=spause]"); pg.clock.run_for(30000); print("paused:", pg.inner_text("#lvl"), pg.inner_text("#lvt")); pg.click("[data-a=spause]")
+    pg.click("[data-a=sall]"); pg.wait_for_timeout(100); print("main:", pg.inner_text(".lvex h1"))
+    pg.click("[data-a=lend]"); pg.wait_for_timeout(100); print("cool button:", pg.is_visible("[data-a=lcool]"))
+    pg.click("[data-a=lcool]"); print("cool:", pg.inner_text(".lvex span"))
+    pg.click("[data-a=sall]"); pg.wait_for_timeout(100); print("end after cool:", pg.inner_text(".lvex h1"))
+    print("errors", errs); b.close()
